@@ -1,9 +1,12 @@
 import Image from "next/image";
 
+import Login from "@/components/Login";
+
 export default function Home() {
   return (
     <main className='mt-20'>
-      <div className='flex items-center justify-center space-x-8'>
+      <Login />
+      {/* <div className='flex items-center justify-center space-x-8'>
         <Image
           className='rounded-lg'
           src={"/landing.jpg"}
@@ -15,7 +18,7 @@ export default function Home() {
           Vereine verbinden,
           <br /> Zukunft gestalten
         </p>
-      </div>
+      </div> */}
     </main>
   );
 }
