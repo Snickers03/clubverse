@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { Field, Form, Formik } from "formik";
+
+import InputUI from "../ui/InputUI";
 
 const Login = () => {
   return (
     <div>
-      <p className='py-2 text-2xl font-medium'>Login</p>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values) => {
@@ -27,29 +29,33 @@ const Login = () => {
           return;
         }}
       >
-        <Form>
-          <div className='space-y-2'>
-            <Field
-              className='border-1 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-blue-600'
-              name='email'
+        {({ errors }) => (
+          <Form>
+            <p className='text-center text-2xl font-medium'>Login</p>
+            <InputUI
+              fieldName='email'
+              label='Deine Email'
               placeholder='Email'
+              error={errors.email}
+              focus
             />
-            <br />
-            <Field
-              className='border-1 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-blue-600'
+            <InputUI
+              fieldName='password'
+              label='Dein Passwort'
+              placeholder='Passwort'
+              error={errors.password}
               type='password'
-              name='password'
-              placeholder='Password'
             />
-          </div>
-          <button
-            className='mt-2 rounded-md bg-green-400 px-6 py-2'
-            type='submit'
-          >
-            Submit
-          </button>
-        </Form>
+            <button type='submit' className='btn-primary mt-4'>
+              Login
+            </button>
+          </Form>
+        )}
       </Formik>
+      <p className='mb-2 mt-4 font-semibold'>Noch keinen Account?</p>
+      <Link href={"/sign-up"}>
+        <p className='btn-secondary text-center'>Jetzt registrieren</p>
+      </Link>
     </div>
   );
 };
