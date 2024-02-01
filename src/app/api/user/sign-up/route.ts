@@ -1,7 +1,6 @@
 import { prisma } from "@/db";
 import { handleApiError } from "@/utils/errorHandler";
 import { createApiResponse } from "@/utils/responseHandler";
-import { Prisma } from "@prisma/client";
 import * as z from "zod";
 
 const createUserSchema = z.object({
@@ -29,7 +28,7 @@ export async function POST(req: Request, res: Response) {
     });
 
     return createApiResponse(newUser);
-  } catch (error: any) {
+  } catch (error) {
     return handleApiError(error, "ERROR: POST /api/user/sign-up");
   }
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Form, Formik } from "formik";
+import { toast } from "sonner";
 
 import InputUI from "../ui/InputUI";
 
@@ -19,10 +20,19 @@ const Login = () => {
             body: JSON.stringify(values),
           });
 
-          const data = await res.json();
-          console.log("res data: ", data);
-
-          return;
+          toast.promise(res.json(), {
+            loading: "Logging in...",
+            success: (data) => {
+              if (data.error) {
+                return data.error;
+              }
+              console.log(data);
+              return "Welcome back " + data.name + "!";
+            },
+            error: (err) => {
+              return "Etwas ist schief gelaufen.";
+            },
+          });
         }}
       >
         {({ errors }) => (

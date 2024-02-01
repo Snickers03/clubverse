@@ -1,4 +1,6 @@
 import { prisma } from "@/db";
+import { handleApiError } from "@/utils/errorHandler";
+import { createApiResponse } from "@/utils/responseHandler";
 import * as z from "zod";
 
 const loginUserSchema = z.object({
@@ -16,14 +18,15 @@ export async function POST(req: Request, res: Response) {
 
     const body = loginUserSchema.parse(json);
 
-    // Prisma Call to login user
-
-    const user = "USER LOGIN SUCCESS";
-
-    return new Response(JSON.stringify(user), {
-      headers: { "content-type": "application/json" },
+    const user = await prisma.user.findUnique({
+      where: {
+        email: body.email,
+        password: body.password,
+      },
     });
+
+    return createApiResponse(user);
   } catch (error) {
-    return "ERROR";
+    return handleApiError(error, "ERROR: POST /api/user/login");
   }
 }
