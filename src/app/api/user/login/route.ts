@@ -1,7 +1,7 @@
 import { prisma } from "@/db";
 import * as z from "zod";
 
-const createPlayerSchema = z.object({
+const loginUserSchema = z.object({
   email: z.string(),
   password: z.string(),
 });
@@ -14,7 +14,7 @@ export async function POST(req: Request, res: Response) {
       return "ERROR: No JSON provided";
     }
 
-    const body = createPlayerSchema.parse(json);
+    const body = loginUserSchema.parse(json);
 
     // Prisma Call to login user
 

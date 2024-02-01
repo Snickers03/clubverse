@@ -11,22 +11,22 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  email          String   @unique
-  name           String?
-  password       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  deleted        Boolean  @default(false)
-  organisationId Int
-
-  organisation Organisation @relation(fields: [organisationId], references: [id])
-}
-
-model Organisation {
   id        Int      @id @default(autoincrement())
+  email     String   @unique
   name      String
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User[]
+  deleted   Boolean  @default(false)
+  // organisationId Int      @default(1)
+
+  // organisation Organisation @relation(fields: [organisationId], references: [id])
 }
+
+// model Organisation {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   User      User[]
+// }

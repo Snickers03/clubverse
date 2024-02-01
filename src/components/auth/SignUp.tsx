@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
+import { toast } from "sonner";
 
 import InputUI from "../ui/InputUI";
 
@@ -10,23 +11,30 @@ const SignUp = () => {
     <div>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={async (values) => {
-          // login api call
-          const res = await fetch("/api/user", {
+        onSubmit={async (values, { resetForm }) => {
+          const res = await fetch("/api/user/sign-up", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              email: values.email,
-              password: values.password,
-            }),
+            body: JSON.stringify(values),
           });
 
-          const data = await res.json();
-          console.log("data: ", data);
-
-          return;
+          toast.promise(res.json(), {
+            loading: "Registrierung läuft...",
+            success: (data) => {
+              if (res.ok) {
+                console.log("user: ", data);
+                resetForm();
+                return "Willkommen " + data.name;
+              } else {
+                throw new Error(data.message);
+              }
+            },
+            error: (err) => {
+              return err.message;
+            },
+          });
         }}
       >
         {({ errors }) => (

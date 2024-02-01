@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 
 import InputUI from "../ui/InputUI";
 
@@ -11,20 +11,16 @@ const Login = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values) => {
-          // login api call
-          const res = await fetch("/api/user", {
+          const res = await fetch("/api/user/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              email: values.email,
-              password: values.password,
-            }),
+            body: JSON.stringify(values),
           });
 
           const data = await res.json();
-          console.log("data: ", data);
+          console.log("res data: ", data);
 
           return;
         }}
