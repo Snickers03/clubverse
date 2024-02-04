@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+import { loginAction, registerAction } from "@/actions/user.actions";
+
 import { InitialUserStateProps, UserProps } from "./user-store.types";
 
 export const initialUserState: InitialUserStateProps = {
@@ -11,18 +13,26 @@ export const useUserStore = create<UserProps>()(
   devtools(
     (set, get) => ({
       ...initialUserState,
-      register: (name: string, email: string, password: string) => {
-        // TODO
+      register: async (name: string, email: string, password: string) => {
+        const user = await registerAction(name, email, password);
+        set({
+          user,
+        });
+        return user;
       },
-      login: (name: string, password: string) => {
-        // TODO
+      login: async (name: string, password: string) => {
+        const user = await loginAction(name, password);
+        set({
+          user,
+        });
+        return user;
       },
       loginWithLocalStorage: (id: string, name: string) => {
         // TODO
       },
       logout: () => {
-        // localStorage.removeItem("playerId");
-        // localStorage.removeItem("playerName");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userToken");
         set({
           user: initialUserState.user,
         });

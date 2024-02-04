@@ -1,36 +1,34 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { LoginSchema } from "@/schemas";
+import { useUserStore } from "@/store/user-store";
 import { Form, Formik } from "formik";
 import { toast } from "sonner";
 
 import InputUI from "../ui/InputUI";
 
 const Login = () => {
+  const router = useRouter();
+  const loginUser = useUserStore((state) => state.login);
+
   return (
     <div>
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={async (values) => {
-          const res = await fetch("/api/user/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-
-          toast.promise(res.json(), {
-            loading: "Logging in...",
+        validationSchema={LoginSchema}
+        onSubmit={async (values, { setFieldValue }) => {
+          toast.promise(loginUser(values.email, values.password), {
+            loading: "Du wirst eingeloggt...",
             success: (data) => {
-              if (data.error) {
-                return data.error;
-              }
-              console.log(data);
-              return "Welcome back " + data.name + "!";
+              router.push("/");
+              return "Willkomen zurück " + data.name + "!";
             },
             error: (err) => {
-              return "Etwas ist schief gelaufen.";
+              // setFieldValue("password", "");
+              console.error(err);
+              return err.message;
             },
           });
         }}

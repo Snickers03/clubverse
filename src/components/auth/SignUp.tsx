@@ -1,40 +1,46 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { RegisterSchema } from "@/schemas";
+import { useUserStore } from "@/store/user-store";
 import { Form, Formik } from "formik";
 import { toast } from "sonner";
 
 import InputUI from "../ui/InputUI";
 
 const SignUp = () => {
+  const user = useUserStore((state) => state.user);
+  const registerUser = useUserStore((state) => state.register);
+
+  const router = useRouter();
+
   return (
     <div>
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
+        validationSchema={RegisterSchema}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }}
         onSubmit={async (values, { resetForm }) => {
-          const res = await fetch("/api/user/sign-up", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-
-          toast.promise(res.json(), {
-            loading: "Registrierung läuft...",
-            success: (data) => {
-              if (res.ok) {
-                console.log("user: ", data);
-                resetForm();
+          toast.promise(
+            registerUser(values.name, values.email, values.password),
+            {
+              loading: "Registrierung läuft...",
+              success: (data) => {
+                // resetForm();
+                router.push("/");
                 return "Willkommen " + data.name;
-              } else {
-                throw new Error(data.message);
-              }
+              },
+              error: (err) => {
+                console.error(err);
+                return err.message;
+              },
             },
-            error: (err) => {
-              return err.message;
-            },
-          });
+          );
         }}
       >
         {({ errors }) => (
@@ -42,22 +48,29 @@ const SignUp = () => {
             <p className='text-center text-2xl font-medium'>Registrierung</p>
             <InputUI
               fieldName='name'
-              label='Dein Name'
+              label='Name'
               placeholder='Name'
               error={errors.name}
               focus
             />
             <InputUI
               fieldName='email'
-              label='Deine Email'
+              label='Email'
               placeholder='Email'
               error={errors.email}
             />
             <InputUI
               fieldName='password'
-              label='Dein Passwort'
+              label='Passwort'
               placeholder='Passwort'
               error={errors.password}
+              type='password'
+            />
+            <InputUI
+              fieldName='confirmPassword'
+              label='Passwort wiederholen'
+              placeholder='Passwort wiederholen'
+              error={errors.confirmPassword}
               type='password'
             />
             <button type='submit' className='btn-primary mt-4'>

@@ -13,6 +13,7 @@ export function handleApiError(error: unknown, consoleErrorPrefix: string) {
       );
     }
   }
+  console.log("PrismaClientKnownRequestError: ", error);
 
   if (error instanceof z.ZodError) {
     return new Response(JSON.stringify({ errors: error.issues }), {
