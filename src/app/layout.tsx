@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import "./globals.css";
 
@@ -7,12 +7,13 @@ import { ReactNode } from "react";
 import clsx from "clsx";
 import { Toaster } from "sonner";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/layout/Navigation";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ClubFlow",
+  title: "ClubVerse",
+  description: "ClubVerse - Dein Verein im Überblick",
 };
 
 export default function RootLayout({
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang='de'>
       <Toaster richColors position='top-center' />
-      <body className={clsx("container mx-auto mt-4", inter.className)}>
+      <body className={clsx("container mx-auto mt-4", montserrat.className)}>
         <Navigation />
         {children}
       </body>

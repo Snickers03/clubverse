@@ -27,7 +27,7 @@ export const useUserStore = create<UserProps>()(
         });
         return user;
       },
-      loginWithLocalStorage: (id: string, name: string) => {
+      loginWithToken: async (token: string) => {
         // TODO
       },
       logout: () => {

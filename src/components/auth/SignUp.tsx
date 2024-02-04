@@ -10,10 +10,9 @@ import { toast } from "sonner";
 import InputUI from "../ui/InputUI";
 
 const SignUp = () => {
-  const user = useUserStore((state) => state.user);
-  const registerUser = useUserStore((state) => state.register);
-
   const router = useRouter();
+
+  const registerUser = useUserStore((state) => state.register);
 
   return (
     <div>
@@ -31,7 +30,7 @@ const SignUp = () => {
             {
               loading: "Registrierung läuft...",
               success: (data) => {
-                // resetForm();
+                resetForm();
                 router.push("/");
                 return "Willkommen " + data.name;
               },
@@ -45,7 +44,7 @@ const SignUp = () => {
       >
         {({ errors }) => (
           <Form>
-            <p className='text-center text-2xl font-medium'>Registrierung</p>
+            <p className='text-center text-2xl font-medium'>🔒 Registrierung</p>
             <InputUI
               fieldName='name'
               label='Name'

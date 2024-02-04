@@ -9,7 +9,7 @@ const createUserSchema = z.object({
   password: z.string(),
 });
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   try {
     const json = await req.json().catch(() => null);
 

@@ -18,16 +18,16 @@ const Login = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={LoginSchema}
-        onSubmit={async (values, { setFieldValue }) => {
+        onSubmit={async (values, { resetForm, setFieldValue }) => {
           toast.promise(loginUser(values.email, values.password), {
             loading: "Du wirst eingeloggt...",
             success: (data) => {
+              resetForm();
               router.push("/");
               return "Willkomen zurück " + data.name + "!";
             },
             error: (err) => {
-              // setFieldValue("password", "");
-              console.error(err);
+              setFieldValue("password", "");
               return err.message;
             },
           });
@@ -35,7 +35,7 @@ const Login = () => {
       >
         {({ errors }) => (
           <Form>
-            <p className='text-center text-2xl font-medium'>Login</p>
+            <p className='text-center text-2xl font-medium'>🔒 Login</p>
             <InputUI
               fieldName='email'
               label='Deine Email'
