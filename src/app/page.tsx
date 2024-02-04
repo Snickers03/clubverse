@@ -1,21 +1,12 @@
-import Image from "next/image";
+"use client";
+
+import { useUserStore } from "@/store/user-store";
+
+import Dashboard from "@/components/dashboard/Dashboard";
+import Landing from "@/components/Landing";
 
 export default function Home() {
-  return (
-    <main className='mt-20'>
-      <div className='flex items-center justify-center space-x-8'>
-        <Image
-          className='rounded-lg'
-          src={"/landing.jpg"}
-          width={600}
-          height={600}
-          alt='Landing'
-        />
-        <p className='text-6xl leading-snug'>
-          Vereine verbinden,
-          <br /> Zukunft gestalten
-        </p>
-      </div>
-    </main>
-  );
+  const user = useUserStore((state) => state.user);
+
+  return <main className='mt-10'>{user ? <Dashboard /> : <Landing />}</main>;
 }
