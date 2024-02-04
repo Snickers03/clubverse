@@ -50,12 +50,12 @@ const InputUI = ({
         {type === "password" && (
           <div>
             {showPassword ? (
-              <EyeOff
+              <Eye
                 className='hover:cursor-pointer'
                 onClick={() => setShowPassword(false)}
               />
             ) : (
-              <Eye
+              <EyeOff
                 className='hover:cursor-pointer'
                 onClick={() => setShowPassword(true)}
               />
