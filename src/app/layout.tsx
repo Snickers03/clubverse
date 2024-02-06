@@ -4,6 +4,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { ReactNode } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
 import { Toaster } from "sonner";
 
@@ -22,12 +23,14 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang='de'>
-      <Toaster richColors position='top-center' />
-      <body className={clsx("container mx-auto mt-4", montserrat.className)}>
-        <Navigation />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='de'>
+        <Toaster richColors position='top-center' />
+        <body className={clsx("container mx-auto mt-4", montserrat.className)}>
+          <Navigation />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

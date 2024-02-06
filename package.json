@@ -10,6 +10,7 @@
     "prisma:push": "prisma db push"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.6",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@prisma/client": "^5.9.0",
     "clsx": "^2.1.0",
