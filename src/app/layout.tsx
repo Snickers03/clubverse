@@ -4,11 +4,10 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { ReactNode } from "react";
+import { deDE } from "@clerk/localizations";
 import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
 import { Toaster } from "sonner";
-
-import Navigation from "@/components/layout/Navigation";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -23,11 +22,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={deDE}>
       <html lang='de'>
         <Toaster richColors position='top-center' />
         <body className={clsx("container mx-auto mt-4", montserrat.className)}>
-          <Navigation />
           {children}
         </body>
       </html>

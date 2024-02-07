@@ -1,9 +1,13 @@
 import Landing from "@/components/Landing";
+import Navigation from "@/components/layout/Navigation";
 
 export default function Home() {
   return (
-    <main className='mt-10'>
-      <Landing />
-    </main>
+    <>
+      <Navigation />
+      <main className='mt-10'>
+        <Landing />
+      </main>
+    </>
   );
 }
