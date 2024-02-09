@@ -1,11 +1,6 @@
 export interface IUser {
   id: string;
-  email: string;
-  name: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deleted: boolean;
+  organisationId?: string;
 }
 
 export interface InitialUserStateProps {
@@ -14,8 +9,6 @@ export interface InitialUserStateProps {
 
 export interface UserProps {
   user: IUser | null;
-  register: (name: string, email: string, password: string) => Promise<any>;
-  login: (email: string, password: string) => Promise<any>;
-  loginWithToken: (token: string) => Promise<any>;
-  logout: () => void;
+
+  createUser: (clerId: string) => Promise<any>;
 }

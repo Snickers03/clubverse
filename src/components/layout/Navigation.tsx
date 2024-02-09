@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { currentUser, UserButton } from "@clerk/nextjs";
-import { LogIn, LogOut, User } from "lucide-react";
+import { LogIn } from "lucide-react";
 
 import Header from "./Header";
 
