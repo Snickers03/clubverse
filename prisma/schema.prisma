@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,22 +8,25 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id             String        @id @default(uuid())
+  organisationId String        @default("")
+  role           Role          @default(USER)
+  organisation   Organisation? @relation(fields: [organisationId], references: [id])
+
+  @@index([organisationId], map: "User_organisationId_fkey")
+}
+
+model Organisation {
+  id        String   @id @default(uuid())
+  adminId   String
   name      String
-  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deleted   Boolean  @default(false)
-  // organisationId Int      @default(1)
-
-  // organisation Organisation @relation(fields: [organisationId], references: [id])
+  users     User[]
 }
 
-// model Organisation {
-//   id        Int      @id @default(autoincrement())
-//   name      String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   User      User[]
-// }
+enum Role {
+  ADMIN
+  USER
+}

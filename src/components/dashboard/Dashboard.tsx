@@ -1,21 +1,28 @@
-import { useUserStore } from "@/store/user-store";
-import { Calendar, HandCoins, Users, Warehouse } from "lucide-react";
+"use client";
 
-import DashboardCard from "./DashboardCard";
+import { useOrganisationStore } from "@/store/organisation-store";
+
+import JoinOrganisation from "./organisation/JoinOrganisation";
+import Organisation from "./organisation/Organisation";
 
 const Dashboard = () => {
-  const user = useUserStore((state) => state.user);
+  const organisation = useOrganisationStore((state) => state.organisation);
+
   return (
     <div>
-      <h1 className='text-3xl font-bold'>Dashboard</h1>
-      <p className='py-2 text-lg'>Willkommen {user?.name}!</p>
+      {organisation && <Organisation />}
+      {!organisation && <JoinOrganisation />}
 
-      <div className='grid grid-cols-2 gap-2'>
-        <DashboardCard label='Mitglieder verwalten' icon={<Users />} />
+      {/* <div className='grid grid-cols-2 gap-2'>
+        <DashboardCard
+          label='Mitglieder verwalten'
+          icon={<Users />}
+          href='/members'
+        />
         <DashboardCard label='Inventar' icon={<Warehouse />} />
         <DashboardCard label='Termine' icon={<Calendar />} />
         <DashboardCard label='Spendenbelege' icon={<HandCoins />} />
-      </div>
+      </div> */}
     </div>
   );
 };

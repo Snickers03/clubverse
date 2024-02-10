@@ -1,12 +1,13 @@
-"use client";
-
-import { useUserStore } from "@/store/user-store";
-
-import Dashboard from "@/components/dashboard/Dashboard";
 import Landing from "@/components/Landing";
+import Navigation from "@/components/layout/Navigation";
 
 export default function Home() {
-  const user = useUserStore((state) => state.user);
-
-  return <main className='mt-10'>{user ? <Dashboard /> : <Landing />}</main>;
+  return (
+    <>
+      <Navigation />
+      <main className='mt-10'>
+        <Landing />
+      </main>
+    </>
+  );
 }
