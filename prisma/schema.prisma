@@ -9,17 +9,24 @@ datasource db {
 
 model User {
   id             String        @id @default(uuid())
-  organisationId Int?
+  organisationId String        @default("")
+  role           Role          @default(USER)
   organisation   Organisation? @relation(fields: [organisationId], references: [id])
 
   @@index([organisationId], map: "User_organisationId_fkey")
 }
 
 model Organisation {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
+  adminId   String
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deleted   Boolean  @default(false)
   users     User[]
+}
+
+enum Role {
+  ADMIN
+  USER
 }

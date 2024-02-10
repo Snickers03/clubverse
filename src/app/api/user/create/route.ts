@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const json = await req.json().catch(() => null);
 
     if (!json) {
-      return "ERROR: No JSON provided";
+      throw new Error("No JSON provided");
     }
 
     const body = userCreateSchema.parse(json);
@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         id: body.clerkId,
       },
     });
+    // TODO fetch organisation data
 
     if (!user) {
       const newUser = await prisma.user.create({
@@ -34,6 +35,6 @@ export async function POST(req: Request) {
 
     return createApiResponse(user);
   } catch (error) {
-    return handleApiError(error, "ERROR: POST /api/user/login");
+    return handleApiError(error, "ERROR: POST /api/user/create");
   }
 }

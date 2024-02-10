@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Navigation from "@/components/layout/Navigation";
 
 export const metadata: Metadata = {
-  title: "ClubVerse | Main",
+  title: "ClubVerse | Dashboard",
   description: "ClubVerse - Dein Verein im Überblick",
 };
 
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <div>
+    <div className='container mx-auto mt-4'>
       <Navigation />
       {children}
     </div>

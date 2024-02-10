@@ -1,32 +1,35 @@
 "use client";
 
 import { useEffect } from "react";
+import { useOrganisationStore } from "@/store/organisation-store";
 import { useUser } from "@clerk/nextjs";
 
 import { createUserAction } from "@/actions/user.actions";
 import Dashboard from "@/components/dashboard/Dashboard";
 
 export default function Page() {
-  // const clerkUser = await currentUser();
-
   const { user: clerkUser } = useUser();
+
+  const getOrganisation = useOrganisationStore(
+    (state) => state.getOrganisation,
+  );
 
   const clerkUserId = clerkUser?.id;
 
   useEffect(() => {
     if (clerkUserId) {
       const createUser = async () => {
-        const res = await createUserAction(clerkUserId);
-        console.log("res: ", res);
+        const userRes = await createUserAction(clerkUserId);
+        const userId = userRes.id;
+        await getOrganisation(userId);
       };
 
       createUser();
     }
-  }, [clerkUserId]);
+  }, [clerkUserId, getOrganisation]);
 
   return (
-    <div className='mt-20 text-center'>
-      {/* <p className='text-2xl font-medium'>Main Page / {clerkUser?.username}</p> */}
+    <div className='mt-8'>
       <Dashboard />
     </div>
   );

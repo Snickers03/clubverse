@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Field } from "formik";
 import { Eye, EyeOff } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface InputUIProps {
   label: string;
@@ -29,24 +31,25 @@ const InputUI = ({
 
   return (
     <div>
-      <div className='my-2 flex justify-between'>
-        <p className='ml-1 font-bold'>{label}</p>
-        <p className='mr-1'>
+      <div className='flex items-start justify-between pb-2'>
+        <Label>{label}</Label>
+        <Label className='mr-1'>
           {error ? (
-            <span className='text-[14px] text-red-500'>{error}</span>
+            <span className='text-[12px] text-red-500'>{error}</span>
           ) : (
             <span className='text-slate-400'>*</span>
           )}
-        </p>
+        </Label>
       </div>
       <div className='flex items-center space-x-2'>
-        <Field
-          innerRef={focus && ref}
-          className='input-primary'
-          name={fieldName}
+        <Input
+          id={label}
+          fieldName={fieldName}
+          ref={focus ? ref : null}
           type={type === "password" && showPassword ? "text" : type}
           placeholder={placeholder}
         />
+
         {type === "password" && (
           <div>
             {showPassword ? (

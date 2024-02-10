@@ -1,17 +1,19 @@
 "use client";
 
-import { useUserStore } from "@/store/user-store";
-import { Calendar, HandCoins, Users, Warehouse } from "lucide-react";
+import { useOrganisationStore } from "@/store/organisation-store";
 
-import DashboardCard from "./DashboardCard";
+import JoinOrganisation from "./organisation/JoinOrganisation";
+import Organisation from "./organisation/Organisation";
 
 const Dashboard = () => {
-  const user = useUserStore((state) => state.user);
+  const organisation = useOrganisationStore((state) => state.organisation);
+
   return (
     <div>
-      <h1 className='mb-3 text-left text-3xl font-bold'>Dashboard</h1>
+      {organisation && <Organisation />}
+      {!organisation && <JoinOrganisation />}
 
-      <div className='grid grid-cols-2 gap-2'>
+      {/* <div className='grid grid-cols-2 gap-2'>
         <DashboardCard
           label='Mitglieder verwalten'
           icon={<Users />}
@@ -20,7 +22,7 @@ const Dashboard = () => {
         <DashboardCard label='Inventar' icon={<Warehouse />} />
         <DashboardCard label='Termine' icon={<Calendar />} />
         <DashboardCard label='Spendenbelege' icon={<HandCoins />} />
-      </div>
+      </div> */}
     </div>
   );
 };

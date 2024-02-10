@@ -1,4 +1,6 @@
-export const createUserAction = async (clerkId: string) => {
+import { User } from "@prisma/client";
+
+export const createUserAction = async (clerkId: string): Promise<User> => {
   const res = await fetch("/api/user/create", {
     method: "POST",
     headers: {
