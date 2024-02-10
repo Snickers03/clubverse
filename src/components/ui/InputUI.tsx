@@ -43,6 +43,7 @@ const InputUI = ({
       </div>
       <div className='flex items-center space-x-2'>
         <Input
+          id={label}
           fieldName={fieldName}
           ref={focus ? ref : null}
           type={type === "password" && showPassword ? "text" : type}

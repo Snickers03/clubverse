@@ -1,16 +1,20 @@
-import { Organisation } from "@prisma/client";
+import { Organisation, User } from "@prisma/client";
 
 export interface InitialOrganiastionStateProps {
-  organisation: Organisation | null;
+  organisation: (Organisation & { users: User[] | null }) | null;
 }
 
 export interface OrganisationProps {
-  organisation: Organisation | null;
+  organisation: (Organisation & { users: User[] | null }) | null;
 
   createOrganisation: (
     userId: string,
     organisationName: string,
   ) => Promise<Organisation>;
+
+  getOrganisation: (
+    userId: string,
+  ) => Promise<Organisation & { users: User[] }>;
 
   // TODO: Delete from db
   leaveOrganisation: () => void;

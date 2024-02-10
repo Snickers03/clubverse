@@ -1,6 +1,6 @@
 import CreateOrganisation from "./CreateOrganisation";
 
-const JoinOrganisationProcess = () => {
+const JoinOrganisation = () => {
   return (
     <div>
       <div className='mt-4 py-4 text-slate-500'>
@@ -21,4 +21,4 @@ const JoinOrganisationProcess = () => {
   );
 };
 
-export default JoinOrganisationProcess;
+export default JoinOrganisation;

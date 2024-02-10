@@ -1,8 +1,11 @@
-import { Organisation } from "@prisma/client";
+import { Organisation, User } from "@prisma/client";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-import { createOrganisationAction } from "@/actions/organisation.actions";
+import {
+  createOrganisationAction,
+  getOrganisationAction,
+} from "@/actions/organisation.actions";
 
 import {
   InitialOrganiastionStateProps,
@@ -26,9 +29,18 @@ export const useOrganisationStore = create<OrganisationProps>()(
           userId,
           organisationName,
         );
-        set({ organisation });
+        set({ organisation: { ...organisation, users: null } });
         return organisation;
       },
+
+      getOrganisation: async (
+        userId: string,
+      ): Promise<Organisation & { users: User[] }> => {
+        const organisationWithUsers = await getOrganisationAction(userId);
+        set({ organisation: organisationWithUsers });
+        return organisationWithUsers;
+      },
+
       leaveOrganisation: () => {
         set({ organisation: null });
       },

@@ -14,7 +14,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <div>
+    <div className='container mx-auto mt-4'>
       <Navigation />
       {children}
     </div>
