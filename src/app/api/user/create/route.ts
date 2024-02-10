@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         id: body.clerkId,
       },
     });
+    // TODO fetch organisation data
 
     if (!user) {
       const newUser = await prisma.user.create({

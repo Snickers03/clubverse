@@ -30,20 +30,16 @@ export async function POST(req: Request) {
       );
     }
 
-    if (user.organisationId) {
-      const organisationWithUsers = await prisma.organisation.findFirst({
-        where: {
-          id: user.organisationId,
-        },
-        include: {
-          users: true,
-        },
-      });
+    const organisationWithUsers = await prisma.organisation.findFirst({
+      where: {
+        id: user.organisationId,
+      },
+      include: {
+        users: true,
+      },
+    });
 
-      return createApiResponse(organisationWithUsers);
-    } else {
-      return createApiResponse(null);
-    }
+    return createApiResponse(organisationWithUsers);
   } catch (error) {
     return handleApiError(error, "ERROR: POST /api/organisation/create");
   }

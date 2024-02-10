@@ -2,7 +2,7 @@ import CreateOrganisation from "./CreateOrganisation";
 
 const JoinOrganisation = () => {
   return (
-    <div className='text-center'>
+    <div>
       <div className='mt-4 py-4 text-slate-500'>
         <p>Du bist noch in keiner Organisation.</p>
         <p>Erstelle eine Organisation oder trete einer bei.</p>
