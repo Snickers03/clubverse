@@ -1,4 +1,5 @@
 import CreateOrganisation from "./CreateOrganisation";
+import SearchOrganisation from "./SearchOrganisation";
 
 const JoinOrganisation = () => {
   return (
@@ -9,9 +10,7 @@ const JoinOrganisation = () => {
       </div>
 
       <div>
-        <p className='mt-4 text-2xl font-medium'>Organisation Suchen</p>
-        {/* // TODO Manu */}
-        <p className='py-3'>---</p>
+        <SearchOrganisation />
       </div>
 
       <p className='my-6 font-medium'>ODER</p>
