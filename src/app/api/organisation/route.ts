@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const json = await req.json().catch(() => null);
 
     if (!json) {
-      return "ERROR: No JSON provided";
+      throw new Error("No JSON provided");
     }
 
     const body = organisationCreateSchema.parse(json);
