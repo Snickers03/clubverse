@@ -16,6 +16,8 @@ export interface OrganisationProps {
     userId: string,
   ) => Promise<Organisation & { users: User[] }>;
 
+  searchOrganisation: (searchTerm: string) => Promise<Organisation[]>;
+
   // TODO: Delete from db
   leaveOrganisation: () => void;
 }

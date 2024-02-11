@@ -5,6 +5,7 @@ import { devtools } from "zustand/middleware";
 import {
   createOrganisationAction,
   getOrganisationAction,
+  searchOrganisationAction,
 } from "@/actions/organisation.actions";
 
 import {
@@ -39,6 +40,13 @@ export const useOrganisationStore = create<OrganisationProps>()(
         const organisationWithUsers = await getOrganisationAction(userId);
         set({ organisation: organisationWithUsers });
         return organisationWithUsers;
+      },
+
+      searchOrganisation: async (
+        searchTerm: string,
+      ): Promise<Organisation[]> => {
+        const organisations = await searchOrganisationAction(searchTerm);
+        return organisations;
       },
 
       leaveOrganisation: () => {

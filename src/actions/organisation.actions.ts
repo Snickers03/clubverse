@@ -40,3 +40,23 @@ export const getOrganisationAction = async (
 
   return data;
 };
+
+export const searchOrganisationAction = async (
+  searchTerm: string,
+): Promise<Organisation[]> => {
+  const res = await fetch("/api/organisation/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ searchTerm }),
+  });
+
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data;
+};
