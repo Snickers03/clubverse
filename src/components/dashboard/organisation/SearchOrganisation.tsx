@@ -53,17 +53,20 @@ const SearchOrganisation = () => {
           </Form>
         )}
       </Formik>
-
-      <div>
+      <div className="mt-4">
         {searchResults && searchResults.length > 0 && (
-          <div>
-            {searchResults.map((organisation: Organisation) => {
-              return (
-                <div key={organisation.id}>
-                  <p>{organisation.name}</p>
+          <div className="p-4 bg-gray-100 w-1/3 mx-auto">
+            <div className="space-y-2">
+              {searchResults.map((organisation: Organisation) => (
+                <div
+                  key={organisation.id}
+                  className="flex items-center justify-between p-2 bg-white shadow rounded"
+                >
+                  <p className="text-xl font-semibold">{organisation.name}</p>
+                  <Button variant="outline">Anfrage</Button>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
         )}
       </div>
