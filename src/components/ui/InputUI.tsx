@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
+import { InputFormik } from "@/components/ui/inputFormik";
 import { Label } from "@/components/ui/label";
 
 interface InputUIProps {
@@ -42,7 +42,7 @@ const InputUI = ({
         </Label>
       </div>
       <div className='flex items-center space-x-2'>
-        <Input
+        <InputFormik
           id={label}
           fieldName={fieldName}
           ref={focus ? ref : null}

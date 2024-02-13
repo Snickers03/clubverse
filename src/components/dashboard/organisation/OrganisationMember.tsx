@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { AddMemberDialog } from "./settings/AddMemberDialog";
+import { AddMemberDialog } from "../AddMemberDialog";
 
 const OrganisationMember = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
