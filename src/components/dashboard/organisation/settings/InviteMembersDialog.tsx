@@ -1,3 +1,4 @@
+import { useOrganisationStore } from "@/store/organisation-store";
 import { CopyIcon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -16,7 +17,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function InviteMembersDialog() {
-  const inviteLink = "https://example.com/invite/123";
+  const organisation = useOrganisationStore((state) => state.organisation);
+  const url = process.env.NEXT_PUBLIC_INVITE_URL ?? "http://localhost:3000/";
+  const inviteLink = url + organisation?.inviteLink || "";
 
   return (
     <Dialog>
