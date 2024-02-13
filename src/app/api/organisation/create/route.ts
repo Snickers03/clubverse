@@ -22,6 +22,7 @@ export async function POST(req: Request) {
       data: {
         adminId: body.userId,
         name: body.organisationName,
+        inviteLink: Math.random().toString(36).substring(2, 15),
       },
     });
 

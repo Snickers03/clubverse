@@ -18,6 +18,10 @@ export interface OrganisationProps {
 
   searchOrganisation: (searchTerm: string) => Promise<Organisation[]>;
 
-  // TODO: Delete from db
-  leaveOrganisation: () => void;
+  updateOrganisationName: (
+    organisationId: string,
+    newOrganisationName: string,
+  ) => Promise<Organisation>;
+
+  leaveOrganisation: (userId: string) => Promise<void>;
 }
