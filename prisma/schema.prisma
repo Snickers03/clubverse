@@ -9,7 +9,14 @@ datasource db {
 
 model User {
   id             String        @id @default(uuid())
+  firstName      String
+  lastName       String
+  email          String        @unique
   organisationId String?
+  address        String?
+  phoneNumber    String?
+  birthDate      DateTime?
+  joinDate       DateTime      @default(now())
   role           Role          @default(USER)
   organisation   Organisation? @relation(fields: [organisationId], references: [id])
 

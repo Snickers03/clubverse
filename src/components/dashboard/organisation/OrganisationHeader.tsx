@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { ChangeNameDialog } from "./ChangeNameDialog";
+
 const OrganisationHeader = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
   const leaveOrganisation = useOrganisationStore(
@@ -24,23 +26,26 @@ const OrganisationHeader = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline'>
-              <Settings className='mr-2' /> Settings
+              <Settings className='mr-2' /> Einstellungen
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-56'>
-            <DropdownMenuLabel>Organisation Settings</DropdownMenuLabel>
+            <DropdownMenuLabel>Organisation</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>Edit Details</DropdownMenuItem>
-              <DropdownMenuItem>Invite Members</DropdownMenuItem>
+              <DropdownMenuItem>
+                <ChangeNameDialog currentOrganisationName='Birnbacher' />
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>Mitglieder einladen</DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Danger Zone</DropdownMenuLabel>
             <DropdownMenuItem className='text-red-600'>
-              Leave Organisation
+              Organisation verlassen
             </DropdownMenuItem>
             <DropdownMenuItem className='text-red-600'>
-              Delete Organisation
+              Organisation löschen
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

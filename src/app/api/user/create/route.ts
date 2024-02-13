@@ -5,6 +5,9 @@ import * as z from "zod";
 
 const userCreateSchema = z.object({
   clerkId: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string().email(),
 });
 
 export async function POST(req: Request) {
@@ -27,6 +30,9 @@ export async function POST(req: Request) {
       const newUser = await prisma.user.create({
         data: {
           id: body.clerkId,
+          firstName: body.firstName,
+          lastName: body.lastName,
+          email: body.email,
         },
       });
       return createApiResponse(newUser);

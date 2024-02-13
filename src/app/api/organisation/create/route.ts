@@ -31,6 +31,7 @@ export async function POST(req: Request) {
       },
       data: {
         organisationId: newOrganisation.id,
+        role: "ADMIN",
       },
     });
 

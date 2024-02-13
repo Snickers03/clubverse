@@ -5,3 +5,9 @@ export const CreateOrganisationSchema = Yup.object().shape({
     .required("Bitte gib einen Namen ein.")
     .max(128, "Der Name ist zu lang."),
 });
+
+export const AddMemberSchema = Yup.object().shape({
+  firstName: Yup.string().required("*"),
+  lastName: Yup.string().required("*"),
+  email: Yup.string().email("* Ungültige Email-Adresse"),
+});
