@@ -3,6 +3,8 @@ import { handleApiError } from "@/utils/errorHandler";
 import { createApiResponse } from "@/utils/responseHandler";
 import * as z from "zod";
 
+// POST: Get Organisation from userId
+
 const organisationCreateSchema = z.object({
   userId: z.string(),
 });
@@ -45,6 +47,41 @@ export async function POST(req: Request) {
       return createApiResponse(null);
     }
   } catch (error) {
-    return handleApiError(error, "ERROR: POST /api/organisation/create");
+    return handleApiError(error, "ERROR: POST /api/organisation");
+  }
+}
+
+// PUT: Update Organisation Name
+
+const organisationUpdateSchema = z.object({
+  organisationId: z.string(),
+  newOrganisationName: z.string(),
+});
+
+export async function PUT(req: Request) {
+  try {
+    const json = await req.json().catch(() => null);
+
+    if (!json) {
+      throw new Error("No JSON provided");
+    }
+
+    const body = organisationUpdateSchema.parse(json);
+
+    const organisation = await prisma.organisation.update({
+      where: {
+        id: body.organisationId,
+      },
+      data: {
+        name: body.newOrganisationName,
+      },
+      include: {
+        users: true,
+      },
+    });
+
+    return createApiResponse(organisation);
+  } catch (error) {
+    return handleApiError(error, "ERROR: PUT /api/organisation");
   }
 }

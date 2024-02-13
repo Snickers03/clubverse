@@ -24,13 +24,14 @@ model User {
 }
 
 model Organisation {
-  id        String   @id @default(uuid())
-  adminId   String
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deleted   Boolean  @default(false)
-  users     User[]
+  id         String   @id @default(uuid())
+  adminId    String
+  name       String
+  inviteLink String?  @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deleted    Boolean  @default(false)
+  users      User[]
 }
 
 enum Role {
