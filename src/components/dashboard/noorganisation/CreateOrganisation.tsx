@@ -15,7 +15,9 @@ const CreateOrganisation = () => {
 
   return (
     <div>
-      <p className='pb-4 text-2xl font-medium'>Organisation Erstellen</p>
+      <p className='pb-4 text-center text-2xl font-medium'>
+        Organisation Erstellen
+      </p>
       <Formik
         validationSchema={CreateOrganisationSchema}
         initialValues={{ name: "" }}
@@ -40,7 +42,11 @@ const CreateOrganisation = () => {
                 error={errors.name}
               />
             </div>
-            <Button type='submit' variant='outline' className='mt-3'>
+            <Button
+              type='submit'
+              variant='outline'
+              className='mx-auto mt-3 flex w-1/3'
+            >
               Jetzt Erstellen
             </Button>
           </Form>

@@ -16,6 +16,10 @@ export interface OrganisationProps {
     userId: string,
   ) => Promise<Organisation & { users: User[] }>;
 
-  // TODO: Delete from db
-  leaveOrganisation: () => void;
+  updateOrganisationName: (
+    organisationId: string,
+    newOrganisationName: string,
+  ) => Promise<Organisation>;
+
+  leaveOrganisation: (userId: string) => Promise<void>;
 }

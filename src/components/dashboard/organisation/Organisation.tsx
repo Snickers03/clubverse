@@ -1,11 +1,12 @@
 import OrganisationHeader from "./OrganisationHeader";
-import OrganisationMember from "./OrganisationMember";
+
+// import OrganisationMember from "./OrganisationMember";
 
 const Organisation = () => {
   return (
     <div>
       <OrganisationHeader />
-      <OrganisationMember />
+      {/* <OrganisationMember /> */}
     </div>
   );
 };
