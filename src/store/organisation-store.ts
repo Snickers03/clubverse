@@ -26,11 +26,8 @@ export const useOrganisationStore = create<OrganisationProps>()(
         userId: string,
         organisationName: string,
       ): Promise<Organisation> => {
-        const organisation = await createOrganisationAction(
-          userId,
-          organisationName,
-        );
-        set({ organisation: { ...organisation, users: null } });
+        await createOrganisationAction(userId, organisationName);
+        const organisation = get().getOrganisation(userId);
         return organisation;
       },
 

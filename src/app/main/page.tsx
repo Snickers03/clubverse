@@ -14,19 +14,17 @@ export default function Page() {
     (state) => state.getOrganisation,
   );
 
-  const clerkUserId = clerkUser?.id;
-
   useEffect(() => {
-    if (clerkUserId) {
+    if (clerkUser) {
       const createUser = async () => {
-        const userRes = await createUserAction(clerkUserId);
+        const userRes = await createUserAction(clerkUser);
         const userId = userRes.id;
         await getOrganisation(userId);
       };
 
       createUser();
     }
-  }, [clerkUserId, getOrganisation]);
+  }, [clerkUser, getOrganisation]);
 
   return (
     <div className='mt-8'>

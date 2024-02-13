@@ -11,3 +11,9 @@ export const SearchOrganisationSchema = Yup.object().shape({
     .required("Bitte gib einen Namen ein.")
     .min(3, "Der Name ist zu kurz."),
 });
+
+export const AddMemberSchema = Yup.object().shape({
+  firstName: Yup.string().required("*"),
+  lastName: Yup.string().required("*"),
+  email: Yup.string().email("* Ungültige Email-Adresse"),
+});
