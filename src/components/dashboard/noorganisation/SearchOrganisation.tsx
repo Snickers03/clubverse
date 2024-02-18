@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import InputUI from "@/components/ui/InputUI";
+import { useUser } from "@clerk/nextjs";
 
 const SearchOrganisation = () => {
   const searchOrganisation = useOrganisationStore(
@@ -31,6 +32,11 @@ const SearchOrganisation = () => {
       },
     });
   };
+
+  const createRequest = useOrganisationStore(
+    (state) => state.createRequest,
+  );
+  const userId = useUser().user?.id ?? "";
 
   return (
     <div>
@@ -73,7 +79,15 @@ const SearchOrganisation = () => {
                 className='flex items-center justify-between rounded bg-white px-3 py-2'
               >
                 <p className='text-lg font-semibold'>{organisation.name}</p>
-                <Button onClick={() => console.log("Request...")} size={"sm"}>
+                <Button onClick={() => {
+                  toast.promise(createRequest(userId, organisation.id, status = "PENDING"), {
+                    loading: "Beitrittsanfrage wird erstellt...",
+                    success: (data) => {
+                      return `Beitrittsanfrage wurde erstellt`;
+                    },
+                    error: "Fehler beim Erstellen der Beitrittsanfrage",
+                  });
+                }} size={"sm"}>
                   Anfragen
                 </Button>
               </div>

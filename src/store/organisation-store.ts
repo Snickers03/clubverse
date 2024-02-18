@@ -70,7 +70,7 @@ export const useOrganisationStore = create<OrganisationProps>()(
         userId: string,
         organisationId: string,
         status: "PENDING",
-      ): Promise<Request & { users: User[] }> => {
+      ): Promise<Request & {}> => {
         await createRequestAction(userId, organisationId, status);
         const request = get().createRequest(userId, organisationId, status);
         return request;
