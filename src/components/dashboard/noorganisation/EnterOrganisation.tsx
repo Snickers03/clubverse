@@ -8,11 +8,8 @@ const EnterOrganisation = () => {
         <p>Du bist noch in keiner Organisation.</p>
         <p>Erstelle eine Organisation oder trete einer bei.</p>
       </div>
-
       <SearchOrganisation />
-
       <p className='my-6 text-center font-medium'>ODER</p>
-
       <CreateOrganisation />
     </div>
   );

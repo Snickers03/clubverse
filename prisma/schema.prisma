@@ -35,12 +35,6 @@ model Requests {
   organisation   Organisation  @relation(fields: [organisationId], references: [id])
 }
 
-enum RequestStatus {
-  PENDING
-  ACCEPTED
-  DENIED
-}
-
 model Organisation {
   id         String     @id @default(uuid())
   adminId    String
@@ -51,6 +45,12 @@ model Organisation {
   inviteLink String?    @unique
   users      User[]
   requests   Requests[]
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DENIED
 }
 
 enum Role {

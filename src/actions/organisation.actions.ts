@@ -103,14 +103,13 @@ export const leaveOrganisationAction = async (userId: string) => {
 export const createRequestAction = async (
   userId: string,
   organisationId: string,
-  status: "PENDING",
 ): Promise<Request> => {
   const res = await fetch("/api/organisation/admissionRequest", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ userId, organisationId, status }),
+    body: JSON.stringify({ userId, organisationId }),
   });
 
   const data = await res.json();

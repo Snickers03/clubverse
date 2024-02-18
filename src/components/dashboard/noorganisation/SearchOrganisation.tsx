@@ -7,7 +7,8 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import InputUI from "@/components/ui/InputUI";
-import { useUser } from "@clerk/nextjs";
+
+import SearchResults from "./SearchResults";
 
 const SearchOrganisation = () => {
   const searchOrganisation = useOrganisationStore(
@@ -32,11 +33,6 @@ const SearchOrganisation = () => {
       },
     });
   };
-
-  const createRequest = useOrganisationStore(
-    (state) => state.createRequest,
-  );
-  const userId = useUser().user?.id ?? "";
 
   return (
     <div>
@@ -69,32 +65,7 @@ const SearchOrganisation = () => {
           </Form>
         )}
       </Formik>
-      <div className='mt-4'>
-        {searchResults && searchResults.length > 0 && (
-          <div className='mx-auto w-1/3 space-y-2'>
-            <p className='font-medium'>Ergebnisse:</p>
-            {searchResults.map((organisation: Organisation) => (
-              <div
-                key={organisation.id}
-                className='flex items-center justify-between rounded bg-white px-3 py-2'
-              >
-                <p className='text-lg font-semibold'>{organisation.name}</p>
-                <Button onClick={() => {
-                  toast.promise(createRequest(userId, organisation.id, status = "PENDING"), {
-                    loading: "Beitrittsanfrage wird erstellt...",
-                    success: (data) => {
-                      return `Beitrittsanfrage wurde erstellt`;
-                    },
-                    error: "Fehler beim Erstellen der Beitrittsanfrage",
-                  });
-                }} size={"sm"}>
-                  Anfragen
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {searchResults && <SearchResults searchResults={searchResults} />}
     </div>
   );
 };

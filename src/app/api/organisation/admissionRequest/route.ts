@@ -18,6 +18,20 @@ export async function POST(req: Request) {
 
     const body = requestCreateSchema.parse(json);
 
+    const existingRequest = await prisma.requests.findFirst({
+      where: {
+        userId: body.userId,
+        organisationId: body.organisationId,
+      },
+    });
+
+    if (existingRequest) {
+      return createApiResponse({
+        message: "Anfrage wurde bereits gesendet",
+        status: "error",
+      });
+    }
+
     const newRequest = await prisma.requests.create({
       data: {
         userId: body.userId,
