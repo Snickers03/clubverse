@@ -1,4 +1,4 @@
-import { Organisation, User } from "@prisma/client";
+import { Organisation, User, Requests } from "@prisma/client";
 
 export interface InitialOrganiastionStateProps {
   organisation: (Organisation & { users: User[] | null }) | null;
@@ -24,4 +24,10 @@ export interface OrganisationProps {
   ) => Promise<Organisation>;
 
   leaveOrganisation: (userId: string) => Promise<void>;
+
+  createRequest: (
+    userId: string,
+    organisationId: string,
+    status: "PENDING",
+  ) => Promise<Request>;
 }

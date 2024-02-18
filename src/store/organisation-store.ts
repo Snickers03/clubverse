@@ -1,9 +1,10 @@
-import { Organisation, User } from "@prisma/client";
+import { Organisation, User, Requests } from "@prisma/client";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 import {
   createOrganisationAction,
+  createRequestAction,
   getOrganisationAction,
   leaveOrganisationAction,
   searchOrganisationAction,
@@ -63,6 +64,16 @@ export const useOrganisationStore = create<OrganisationProps>()(
       leaveOrganisation: async (userId: string): Promise<void> => {
         await leaveOrganisationAction(userId);
         set({ organisation: null });
+      },
+
+      createRequest: async (
+        userId: string,
+        organisationId: string,
+        status: "PENDING",
+      ): Promise<Request & { users: User[] }> => {
+        await createRequestAction(userId, organisationId, status);
+        const request = get().createRequest(userId, organisationId, status);
+        return request;
       },
     }),
     { name: "organisation-store" },

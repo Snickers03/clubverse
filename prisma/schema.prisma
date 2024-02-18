@@ -19,19 +19,38 @@ model User {
   joinDate       DateTime      @default(now())
   role           Role          @default(USER)
   organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  //requests      Requests[]
 
   @@index([organisationId], map: "User_organisationId_fkey")
+  }
+
+model Requests {
+  id            String   @id @default(uuid())
+  userId        String
+  organisationId String
+  status        RequestStatus
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  //user          User     @relation(fields: [userId], references: [id])
+  organisation  Organisation @relation(fields: [organisationId], references: [id])
+  }
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DENIED
 }
 
 model Organisation {
   id         String   @id @default(uuid())
   adminId    String
   name       String
-  inviteLink String?  @unique
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   deleted    Boolean  @default(false)
+  inviteLink String?  @unique
   users      User[]
+  requests   Requests[]
 }
 
 enum Role {

@@ -99,3 +99,25 @@ export const leaveOrganisationAction = async (userId: string) => {
 
   return data;
 };
+
+export const createRequestAction = async (
+  userId: string,
+  organisationId: string,
+  status: "PENDING",
+): Promise<Request> => {
+  const res = await fetch("/api/organisation/admissionRequest", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, organisationId, status }),
+  });
+
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data;
+};
