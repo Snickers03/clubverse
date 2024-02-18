@@ -22,18 +22,18 @@ model User {
   //requests      Requests[]
 
   @@index([organisationId], map: "User_organisationId_fkey")
-  }
+}
 
 model Requests {
-  id            String   @id @default(uuid())
-  userId        String
+  id             String        @id @default(uuid())
+  userId         String
   organisationId String
-  status        RequestStatus
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  status         RequestStatus
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   //user          User     @relation(fields: [userId], references: [id])
-  organisation  Organisation @relation(fields: [organisationId], references: [id])
-  }
+  organisation   Organisation  @relation(fields: [organisationId], references: [id])
+}
 
 enum RequestStatus {
   PENDING
@@ -42,13 +42,13 @@ enum RequestStatus {
 }
 
 model Organisation {
-  id         String   @id @default(uuid())
+  id         String     @id @default(uuid())
   adminId    String
   name       String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  deleted    Boolean  @default(false)
-  inviteLink String?  @unique
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  deleted    Boolean    @default(false)
+  inviteLink String?    @unique
   users      User[]
   requests   Requests[]
 }

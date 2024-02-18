@@ -19,14 +19,17 @@ export async function POST(req: Request) {
     const body = requestCreateSchema.parse(json);
 
     const newRequest = await prisma.requests.create({
-        data: {
-            userId: body.userId,
-            organisationId: body.organisationId,
-            status: "PENDING",
-        },
+      data: {
+        userId: body.userId,
+        organisationId: body.organisationId,
+        status: "PENDING",
+      },
     });
     return createApiResponse(newRequest);
   } catch (error) {
-    return handleApiError(error, "ERROR: POST /api/organisation/admissionRequest");
+    return handleApiError(
+      error,
+      "ERROR: POST /api/organisation/admissionRequest",
+    );
   }
 }
