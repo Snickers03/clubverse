@@ -27,7 +27,8 @@ export async function POST(req: Request) {
 
     if (existingRequest) {
       return createApiResponse({
-        message: "Anfrage wurde bereits gesendet",
+        message:
+          "Anfrage wurde bereits gesendet. Warte auf die Bestätigun des Admins.",
         status: "error",
       });
     }

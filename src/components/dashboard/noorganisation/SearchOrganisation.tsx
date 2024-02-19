@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SearchOrganisationSchema } from "@/schemas";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { Organisation } from "@prisma/client";
 import { Form, Formik } from "formik";
+import { Search } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
-import InputUI from "@/components/ui/InputUI";
+import { InputFormik } from "@/components/ui/inputFormik";
 
 import SearchResults from "./SearchResults";
 
@@ -14,58 +14,64 @@ const SearchOrganisation = () => {
   const searchOrganisation = useOrganisationStore(
     (state) => state.searchOrganisation,
   );
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [searchResults, setSearchResults] = useState<Organisation[] | null>(
     null,
   );
 
-  const handleOrganisationSearch = (values: { searchTerm: string }) => {
-    toast.promise(searchOrganisation(values.searchTerm), {
-      loading: "Organisation wird gesucht...",
-      success: (data) => {
-        setSearchResults(data);
-        if (data.length === 0)
-          throw new Error("Keine Organisationen gefunden.");
-        return "Organisationen gefunden";
-      },
-      error: (err) => {
-        return err.message;
-      },
-    });
-  };
-
   return (
     <div>
-      <p className='mb-2 mt-4 text-center text-2xl font-medium'>
-        Organisation Suchen
-      </p>
       <Formik
         validationSchema={SearchOrganisationSchema}
         initialValues={{ searchTerm: "" }}
-        onSubmit={handleOrganisationSearch}
+        onSubmit={(values, { resetForm }) => {
+          toast.promise(searchOrganisation(values.searchTerm), {
+            loading: "Organisation wird gesucht...",
+            success: (data) => {
+              setSearchResults(data);
+              if (data.length === 0)
+                throw new Error("Keine Organisationen gefundedn.");
+              resetForm();
+
+              return "Organisationen gefunden";
+            },
+            error: (err) => {
+              return err.message;
+            },
+          });
+          if (inputRef.current) {
+            inputRef.current.blur();
+          }
+        }}
       >
         {({ errors }) => (
           <Form>
-            <div className='mx-auto w-1/3'>
-              <InputUI
-                label='Suche'
-                placeholder='Organisation suchen...'
+            <div className='relative flex w-full items-center'>
+              <InputFormik
+                ref={inputRef}
+                max={50}
                 fieldName='searchTerm'
                 type='text'
-                error={errors.searchTerm}
+                className='w-full rounded-md border border-slate-300 py-6 text-lg transition duration-150 ease-in-out focus:border-slate-500 focus:outline-none'
+                placeholder='Organisation suchen...'
               />
+              <button
+                type='submit'
+                className='absolute inset-y-0 right-0 mr-2 flex items-center justify-center px-2'
+              >
+                <Search />
+              </button>
             </div>
-            <Button
-              type='submit'
-              variant='outline'
-              className='mx-auto mt-3 flex w-1/3'
-            >
-              Suchen
-            </Button>
           </Form>
         )}
       </Formik>
-      {searchResults && <SearchResults searchResults={searchResults} />}
+      {searchResults && (
+        <SearchResults
+          searchResults={searchResults}
+          resetSearchResults={() => setSearchResults(null)}
+        />
+      )}
     </div>
   );
 };

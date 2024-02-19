@@ -23,6 +23,7 @@ export async function POST(req: Request) {
           contains: body.searchTerm,
         },
       },
+      take: 5,
     });
 
     return createApiResponse(organisations);

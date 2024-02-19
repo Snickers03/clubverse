@@ -1,11 +1,7 @@
-import { CreateOrganisationSchema } from "@/schemas";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { useUser } from "@clerk/nextjs";
-import { Form, Formik } from "formik";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import InputUI from "@/components/ui/InputUI";
 
 const CreateOrganisation = () => {
   const userId = useUser().user?.id ?? "";
@@ -15,7 +11,10 @@ const CreateOrganisation = () => {
 
   return (
     <div>
-      <p className='pb-4 text-center text-2xl font-medium'>
+      <Button variant={"outline"} size={"lg"} className='w-full'>
+        Neue Organisation erstellen
+      </Button>
+      {/* <p className='pb-4 text-center text-2xl font-medium'>
         Organisation Erstellen
       </p>
       <Formik
@@ -51,7 +50,7 @@ const CreateOrganisation = () => {
             </Button>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
     </div>
   );
 };

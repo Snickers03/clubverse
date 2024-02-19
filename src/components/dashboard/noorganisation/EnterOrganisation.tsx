@@ -3,13 +3,9 @@ import SearchOrganisation from "./SearchOrganisation";
 
 const EnterOrganisation = () => {
   return (
-    <div>
-      <div className='mt-4 py-4 text-center text-slate-500'>
-        <p>Du bist noch in keiner Organisation.</p>
-        <p>Erstelle eine Organisation oder trete einer bei.</p>
-      </div>
+    <div className='mx-auto mt-12 w-2/5'>
       <SearchOrganisation />
-      <p className='my-6 text-center font-medium'>ODER</p>
+      <p className='mb-2 mt-60 font-medium'>Oder</p>
       <CreateOrganisation />
     </div>
   );
