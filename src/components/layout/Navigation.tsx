@@ -3,6 +3,7 @@ import { currentUser, UserButton } from "@clerk/nextjs";
 import { LogIn } from "lucide-react";
 
 import Header from "./Header";
+import Notifications from "./Notifications";
 
 const Navigation = async () => {
   const user = await currentUser();
@@ -11,9 +12,9 @@ const Navigation = async () => {
     <div className='flex justify-between'>
       <Header />
       {user ? (
-        <div className='flex items-center space-x-2 rounded-md bg-blue-200 px-4'>
+        <div className='flex items-center space-x-3'>
+          <Notifications />
           <UserButton afterSignOutUrl='/' />
-          <p>{user.username}</p>
         </div>
       ) : (
         <div className='flex items-center rounded-lg bg-blue-300 px-3 hover:bg-blue-400 md:px-6'>
