@@ -1,20 +1,28 @@
 import { Organisation, User } from "@prisma/client";
 
+export interface OrganisationWithUsers extends Organisation {
+  users: User[] | null;
+}
+
 export interface InitialOrganiastionStateProps {
-  organisation: (Organisation & { users: User[] | null }) | null;
+  organisation: OrganisationWithUsers | null;
 }
 
 export interface OrganisationProps {
-  organisation: (Organisation & { users: User[] | null }) | null;
+  organisation: OrganisationWithUsers | null;
 
   createOrganisation: (
-    userId: string,
     organisationName: string,
+    organisationType: string,
+    adminId: string,
   ) => Promise<Organisation>;
 
-  getOrganisation: (
+  updateOrganisationAdmin: (
+    organisationId: string,
     userId: string,
-  ) => Promise<Organisation & { users: User[] }>;
+  ) => Promise<Organisation>;
+
+  getOrganisation: (userId: string) => Promise<OrganisationWithUsers>;
 
   updateOrganisationName: (
     organisationId: string,

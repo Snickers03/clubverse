@@ -25,3 +25,27 @@ export const createUserAction = async (
 
   return data;
 };
+
+export const updateUserAction = async (
+  userId: string,
+  organisationId: string,
+): Promise<User> => {
+  const res = await fetch("/api/user/update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      organisationId,
+    }),
+  });
+
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data;
+};

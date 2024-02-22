@@ -26,19 +26,19 @@ export async function POST(req: Request) {
       },
     });
 
-    if (!user) {
-      const newUser = await prisma.user.create({
-        data: {
-          id: body.clerkId,
-          firstName: body.firstName,
-          lastName: body.lastName,
-          email: body.email,
-        },
-      });
-      return createApiResponse(newUser);
+    if (user) {
+      return createApiResponse(user);
     }
 
-    return createApiResponse(user);
+    const newUser = await prisma.user.create({
+      data: {
+        id: body.clerkId,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        email: body.email,
+      },
+    });
+    return createApiResponse(newUser);
   } catch (error) {
     return handleApiError(error, "ERROR: POST /api/user/create");
   }

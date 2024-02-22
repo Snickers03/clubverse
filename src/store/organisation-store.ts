@@ -1,4 +1,3 @@
-import { Organisation, User } from "@prisma/client";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -12,6 +11,7 @@ import {
 import {
   InitialOrganiastionStateProps,
   OrganisationProps,
+  OrganisationWithUsers,
 } from "./organisation-store.types";
 
 export const initialUserState: InitialOrganiastionStateProps = {
@@ -24,17 +24,33 @@ export const useOrganisationStore = create<OrganisationProps>()(
       ...initialUserState,
 
       createOrganisation: async (
-        userId: string,
         organisationName: string,
-      ): Promise<Organisation> => {
-        await createOrganisationAction(userId, organisationName);
-        const organisation = get().getOrganisation(userId);
-        return organisation;
+        organisationType: string,
+        adminId: string,
+      ): Promise<OrganisationWithUsers> => {
+        const res = await createOrganisationAction(
+          organisationName,
+          organisationType,
+          adminId,
+        );
+        const organisationWithUsers = { ...res, users: null };
+        return organisationWithUsers;
+      },
+
+      updateOrganisationAdmin: async (
+        organisationId: string,
+        userId: string,
+      ): Promise<OrganisationWithUsers> => {
+        const updatedOrganisation = await updateOrganisationNameAction(
+          organisationId,
+          userId,
+        );
+        return updatedOrganisation;
       },
 
       getOrganisation: async (
         userId: string,
-      ): Promise<Organisation & { users: User[] }> => {
+      ): Promise<OrganisationWithUsers> => {
         const organisationWithUsers = await getOrganisationAction(userId);
         set({ organisation: organisationWithUsers });
         return organisationWithUsers;
@@ -43,7 +59,7 @@ export const useOrganisationStore = create<OrganisationProps>()(
       updateOrganisationName: async (
         organisationId: string,
         newOrganisationName: string,
-      ): Promise<Organisation & { users: User[] }> => {
+      ): Promise<OrganisationWithUsers> => {
         const updatedOrganisation = await updateOrganisationNameAction(
           organisationId,
           newOrganisationName,

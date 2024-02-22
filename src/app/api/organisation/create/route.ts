@@ -4,8 +4,9 @@ import { createApiResponse } from "@/utils/responseHandler";
 import * as z from "zod";
 
 const organisationCreateSchema = z.object({
-  userId: z.string(),
   organisationName: z.string(),
+  organisationType: z.string(),
+  adminId: z.string(),
 });
 
 export async function POST(req: Request) {
@@ -20,19 +21,10 @@ export async function POST(req: Request) {
 
     const newOrganisation = await prisma.organisation.create({
       data: {
-        adminId: body.userId,
         name: body.organisationName,
+        type: body.organisationType,
+        adminId: body.adminId,
         inviteLink: Math.random().toString(36).substring(2, 15),
-      },
-    });
-
-    await prisma.user.update({
-      where: {
-        id: body.userId,
-      },
-      data: {
-        organisationId: newOrganisation.id,
-        role: "ADMIN",
       },
     });
 

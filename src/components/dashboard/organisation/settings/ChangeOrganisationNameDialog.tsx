@@ -55,7 +55,7 @@ export function ChangeOrganisationNameDialog() {
               </div>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button type='submit'>Update</Button>
+                  <Button type='submit'>Ändern</Button>
                 </DialogClose>
               </DialogFooter>
             </Form>
