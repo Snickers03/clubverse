@@ -5,10 +5,11 @@ import { useOrganisationStore } from "@/store/organisation-store";
 import { useUser } from "@clerk/nextjs";
 
 import { createUserAction, updateUserAction } from "@/actions/user.actions";
-import Dashboard from "@/components/dashboard/Dashboard";
+import Organisation from "@/components/main/organisation/Organisation";
 
 export default function Page() {
   const { user: clerkUser } = useUser();
+  const organisation = useOrganisationStore((state) => state.organisation);
 
   const getOrganisation = useOrganisationStore(
     (state) => state.getOrganisation,
@@ -47,9 +48,5 @@ export default function Page() {
     }
   }, [clerkUser, createOrganisation, getOrganisation]);
 
-  return (
-    <div className='mt-8'>
-      <Dashboard />
-    </div>
-  );
+  return <div className='mt-8'>{organisation && <Organisation />}</div>;
 }

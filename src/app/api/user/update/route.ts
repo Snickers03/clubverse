@@ -38,6 +38,6 @@ export async function POST(req: Request) {
     });
     return createApiResponse(updatedUser);
   } catch (error) {
-    return handleApiError(error, "ERROR: PUT /api/user/create");
+    return handleApiError(error, "ERROR: POST /api/user/update");
   }
 }

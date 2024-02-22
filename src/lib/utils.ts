@@ -9,3 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export const formatDate = (date: Date): string => {
   return moment(date).format("DD.MM.YYYY");
 };
+
+export const createOrganisationInviteCode = () => {
+  return Math.random().toString(36).substring(2, 15);
+};

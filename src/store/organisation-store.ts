@@ -4,7 +4,6 @@ import { devtools } from "zustand/middleware";
 import {
   createOrganisationAction,
   getOrganisationAction,
-  leaveOrganisationAction,
   updateOrganisationNameAction,
 } from "@/actions/organisation.actions";
 
@@ -66,11 +65,6 @@ export const useOrganisationStore = create<OrganisationProps>()(
         );
         set({ organisation: updatedOrganisation });
         return updatedOrganisation;
-      },
-
-      leaveOrganisation: async (userId: string): Promise<void> => {
-        await leaveOrganisationAction(userId);
-        set({ organisation: null });
       },
     }),
     { name: "organisation-store" },

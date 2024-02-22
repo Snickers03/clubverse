@@ -3,8 +3,6 @@ import { handleApiError } from "@/utils/errorHandler";
 import { createApiResponse } from "@/utils/responseHandler";
 import * as z from "zod";
 
-// POST: Get Organisation from userId
-
 const organisationCreateSchema = z.object({
   userId: z.string(),
 });
@@ -26,10 +24,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return handleApiError(
-        "User not found",
-        "ERROR: POST /api/organisation/create",
-      );
+      return handleApiError("User not found", "ERROR: POST /api/organisation");
     }
 
     if (user.organisationId) {
@@ -50,8 +45,6 @@ export async function POST(req: Request) {
     return handleApiError(error, "ERROR: POST /api/organisation");
   }
 }
-
-// PUT: Update Organisation Name
 
 const organisationUpdateSchema = z.object({
   organisationId: z.string(),

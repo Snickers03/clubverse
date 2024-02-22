@@ -1,4 +1,5 @@
 import { prisma } from "@/db";
+import { createOrganisationInviteCode } from "@/lib/utils";
 import { handleApiError } from "@/utils/errorHandler";
 import { createApiResponse } from "@/utils/responseHandler";
 import * as z from "zod";
@@ -24,7 +25,7 @@ export async function POST(req: Request) {
         name: body.organisationName,
         type: body.organisationType,
         adminId: body.adminId,
-        inviteLink: Math.random().toString(36).substring(2, 15),
+        inviteLink: createOrganisationInviteCode(),
       },
     });
 

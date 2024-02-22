@@ -79,15 +79,3 @@ body {
   background-color: rgb(246, 248, 254);
   color: black;
 }
-
-.btn-primary {
-  @apply w-full rounded-md border-2 border-green-400 bg-green-400 px-8 py-2 hover:border-green-500;
-}
-
-.btn-secondary {
-  @apply w-full rounded-md border-[1px] border-slate-400 bg-gray-200 px-4 py-2;
-}
-
-.input-primary {
-  @apply w-full rounded-md border-2 border-gray-300 px-6 py-4 outline-none focus:border-blue-500;
-}

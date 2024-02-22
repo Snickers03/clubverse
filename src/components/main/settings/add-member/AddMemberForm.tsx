@@ -22,8 +22,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { DialogFooter } from "../ui/dialog";
-import { Input } from "../ui/input";
+import { DialogFooter } from "../../../ui/dialog";
+import { Input } from "../../../ui/input";
 
 const FormSchema = z.object({
   forename: z.string({

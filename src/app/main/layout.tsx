@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Navigation from "@/components/layout/Navigation";
 
 export const metadata: Metadata = {
-  title: "ClubVerse | Dashboard",
+  title: "ClubVerse | Main",
   description: "ClubVerse - Dein Verein im Überblick",
 };
 

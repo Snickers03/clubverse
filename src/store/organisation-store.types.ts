@@ -28,6 +28,4 @@ export interface OrganisationProps {
     organisationId: string,
     newOrganisationName: string,
   ) => Promise<Organisation>;
-
-  leaveOrganisation: (userId: string) => Promise<void>;
 }

@@ -3,35 +3,36 @@
 import { useEffect, useState } from "react";
 import { SignUp } from "@clerk/nextjs";
 
+import AuthLayout from "@/components/auth/AuthLayout";
 import { CreateOrganisationForm } from "@/components/auth/CreateOrganisationForm";
-import Header from "@/components/layout/Header";
+
+type CreateOrgaTyp = "CreateOrganisation" | "CreateClerkAccount";
 
 export default function Page() {
-  type CreateOrgaTyp = "Organisation" | "Account";
-
-  const [currentStep, setCurrentStep] = useState<CreateOrgaTyp>("Organisation");
+  const [currentStep, setCurrentStep] =
+    useState<CreateOrgaTyp>("CreateOrganisation");
 
   useEffect(() => {
     const organisation = localStorage.getItem("organisation");
     if (organisation) {
-      setCurrentStep("Account");
+      setCurrentStep("CreateClerkAccount");
     }
   }, []);
 
-  return (
-    <div className='mt-20'>
-      <div className='mb-6 flex justify-center'>
-        <Header />
-      </div>
-      {currentStep === "Organisation" ? (
-        <CreateOrganisationForm
-          goToClerkSignUp={() => setCurrentStep("Account")}
-        />
-      ) : (
-        <div className='flex justify-center'>
+  switch (currentStep) {
+    case "CreateOrganisation":
+      return (
+        <AuthLayout>
+          <CreateOrganisationForm
+            goToClerkSignUp={() => setCurrentStep("CreateClerkAccount")}
+          />
+        </AuthLayout>
+      );
+    case "CreateClerkAccount":
+      return (
+        <AuthLayout>
           <SignUp />
-        </div>
-      )}
-    </div>
-  );
+        </AuthLayout>
+      );
+  }
 }

@@ -1,6 +1,6 @@
 import { useOrganisationStore } from "@/store/organisation-store";
 
-import SettingsDropdown from "./settings/SettingsDropdown";
+import SettingsDropdown from "../settings/SettingsDropdown";
 
 const OrganisationHeader = () => {
   const organisation = useOrganisationStore((state) => state.organisation);

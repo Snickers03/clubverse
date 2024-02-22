@@ -1,5 +1,3 @@
-import { useOrganisationStore } from "@/store/organisation-store";
-import { useUser } from "@clerk/nextjs";
 import { Settings } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,11 +15,6 @@ import { ChangeOrganisationNameDialog } from "./ChangeOrganisationNameDialog";
 import { InviteMembersDialog } from "./InviteMembersDialog";
 
 const SettingsDropdown = () => {
-  const { user } = useUser();
-  const leaveOrganisation = useOrganisationStore(
-    (state) => state.leaveOrganisation,
-  );
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,12 +35,6 @@ const SettingsDropdown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Danger Zone</DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => leaveOrganisation(user?.id ?? "")}
-          className='text-red-600'
-        >
-          Organisation verlassen
-        </DropdownMenuItem>
         <DropdownMenuItem className='text-red-600'>
           Organisation löschen
         </DropdownMenuItem>

@@ -25,7 +25,9 @@ export default function RootLayout({
     <ClerkProvider localization={deDE}>
       <html lang='de'>
         <Toaster richColors position='top-center' />
-        <body className={clsx("px-3", montserrat.className)}>{children}</body>
+        <body className={clsx("px-3 md:px-0", montserrat.className)}>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -18,7 +18,7 @@ import { Label } from "@/components/ui/label";
 
 export function InviteMembersDialog() {
   const organisation = useOrganisationStore((state) => state.organisation);
-  const url = process.env.NEXT_PUBLIC_INVITE_URL ?? "http://localhost:3000/";
+  const url = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000/";
   const inviteLink = url + organisation?.inviteLink || "";
 
   return (
