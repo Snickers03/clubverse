@@ -1,13 +1,27 @@
-import * as Yup from "yup";
+import { z } from "zod";
 
-export const CreateOrganisationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Bitte gib einen Namen ein.")
-    .max(128, "Der Name ist zu lang."),
+export const AddMemberFormSchema = z.object({
+  forename: z.string({
+    required_error: "*",
+  }),
+  surname: z.string({
+    required_error: "*",
+  }),
+  email: z
+    .string({
+      required_error: "*",
+    })
+    .email({
+      message: "* Ungültige Email-Adresse",
+    }),
+  role: z.string().optional(),
 });
 
-export const AddMemberSchema = Yup.object().shape({
-  firstName: Yup.string().required("*"),
-  lastName: Yup.string().required("*"),
-  email: Yup.string().email("* Ungültige Email-Adresse"),
+export const createOrganisationFormSchema = z.object({
+  name: z.string({
+    required_error: "*",
+  }),
+  type: z.string({
+    required_error: "",
+  }),
 });
