@@ -1,5 +1,6 @@
 "use client";
 
+import { createOrganisationFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,13 +23,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const formSchema = z.object({
-  name: z.string({
-    required_error: "*",
-  }),
-  type: z.string(),
-});
-
 interface CreateOrganisationFormProps {
   goToClerkSignUp: () => void;
 }
@@ -36,15 +30,12 @@ interface CreateOrganisationFormProps {
 export function CreateOrganisationForm({
   goToClerkSignUp,
 }: CreateOrganisationFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      type: "NGO",
-    },
+  const form = useForm<z.infer<typeof createOrganisationFormSchema>>({
+    resolver: zodResolver(createOrganisationFormSchema),
+    defaultValues: {},
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof createOrganisationFormSchema>) {
     localStorage.setItem("organisation", JSON.stringify(values));
     goToClerkSignUp();
   }
