@@ -25,3 +25,9 @@ export const createOrganisationFormSchema = z.object({
     required_error: "",
   }),
 });
+
+export const changeOrganisationNameFormSchema = z.object({
+  name: z.string({
+    required_error: "*",
+  }),
+});
