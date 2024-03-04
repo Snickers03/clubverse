@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { Toaster } from "sonner";
 
 import Footer from "@/components/layout/Footer";
+import Navigation from "@/components/layout/Navigation";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -29,10 +30,11 @@ export default function RootLayout({
         <Toaster richColors position='top-center' />
         <body
           className={clsx(
-            "container mx-auto h-screen px-3 md:px-0",
+            "container mx-auto mt-6 px-3 md:px-0",
             montserrat.className,
           )}
         >
+          <Navigation />
           {children}
           <Footer />
         </body>

@@ -1,11 +1,12 @@
+import { MainTabBar } from "../MainTabBar";
 import OrganisationHeader from "./OrganisationHeader";
-import OrganisationMember from "./OrganisationMember";
 
 const Organisation = () => {
   return (
     <div>
       <OrganisationHeader />
-      <OrganisationMember />
+      <MainTabBar />
+      {/* <OrganisationMember /> */}
     </div>
   );
 };

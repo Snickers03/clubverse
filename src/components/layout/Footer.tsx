@@ -7,10 +7,10 @@ import Header from "./Header";
 
 const Footer = () => {
   const pathname = usePathname();
-  const pathsToMinimize = ["/verify-email", "/sign-up", "/sign-in"];
+  const pathsToMinimize = ["/main", "/sign-up", "/sign-in"];
 
   return (
-    <footer className='mx-auto'>
+    <footer className='container mx-auto mt-auto'>
       <div className='border-t border-gray-200'>
         {pathsToMinimize.includes(pathname) ? null : (
           <div className='pb-8 pt-16'>
@@ -60,19 +60,19 @@ const Footer = () => {
         <div className='mt-4 flex items-center justify-center md:mt-0'>
           <div className='flex space-x-8'>
             <Link
-              href='#'
+              href='/agb'
               className='text-sm text-muted-foreground hover:text-gray-600'
             >
               AGB
             </Link>
             <Link
-              href='#'
+              href='/impressum'
               className='text-sm text-muted-foreground hover:text-gray-600'
             >
               Impressum
             </Link>
             <Link
-              href='#'
+              href='/datenschutz'
               className='text-sm text-muted-foreground hover:text-gray-600'
             >
               Datenschutz

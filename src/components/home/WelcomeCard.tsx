@@ -8,7 +8,7 @@ const WelcomeCard = async () => {
   const user = await currentUser();
 
   return (
-    <div>
+    <div className='mt-20'>
       <div className='space-y-4 text-center text-4xl lg:text-6xl'>
         <p>Vereine verbinden,</p>
         <p>Zukunft gestalten</p>

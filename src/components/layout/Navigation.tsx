@@ -10,7 +10,7 @@ const Navigation = async () => {
   const user = await currentUser();
 
   return (
-    <div className='flex items-center justify-between'>
+    <div className='flex items-center justify-between pt-4'>
       <Header />
       <div className='hidden space-x-12 md:block'>
         <Link href={"/"}>Lösungen</Link>
