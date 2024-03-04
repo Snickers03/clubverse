@@ -1,15 +1,13 @@
-import Landing from "@/components/Landing";
-import Navigation from "@/components/layout/Navigation";
+import FeatureCard from "@/components/home/FeatureCard";
+import TeamCard from "@/components/home/TeamCard";
+import WelcomeCard from "@/components/home/WelcomeCard";
 
 export default function Home() {
   return (
-    <>
-      <div className='container mx-auto mt-4'>
-        <Navigation />
-      </div>
-      <main className='mt-10'>
-        <Landing />
-      </main>
-    </>
+    <main>
+      <WelcomeCard />
+      <FeatureCard />
+      <TeamCard />
+    </main>
   );
 }

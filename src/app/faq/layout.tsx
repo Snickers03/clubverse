@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
+import Navigation from "@/components/layout/Navigation";
+
 export const metadata: Metadata = {
-  title: "ClubVerse | Mitglieder",
+  title: "ClubVerse | FAQ",
   description: "ClubVerse - Dein Verein im Überblick",
 };
 
@@ -11,5 +13,10 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <div className='container mx-auto mt-4'>
+      <Navigation />
+      {children}
+    </div>
+  );
 }

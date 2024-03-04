@@ -9,6 +9,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
 import { Toaster } from "sonner";
 
+import Footer from "@/components/layout/Footer";
+import Navigation from "@/components/layout/Navigation";
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,8 +28,15 @@ export default function RootLayout({
     <ClerkProvider localization={deDE}>
       <html lang='de'>
         <Toaster richColors position='top-center' />
-        <body className={clsx("px-3 md:px-0", montserrat.className)}>
+        <body
+          className={clsx(
+            "container mx-auto mt-6 px-3 md:px-0",
+            montserrat.className,
+          )}
+        >
+          <Navigation />
           {children}
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

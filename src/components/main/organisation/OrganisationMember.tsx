@@ -27,7 +27,7 @@ const OrganisationMember = () => {
         <AddMemberDialog />
       </div>
 
-      <Table>
+      <Table className='mt-3 rounded-md bg-white'>
         <TableCaption>Eine Liste aller Organisationsmitglieder.</TableCaption>
         <TableHeader>
           <TableRow>
