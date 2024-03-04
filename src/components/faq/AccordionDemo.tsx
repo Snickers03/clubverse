@@ -1,4 +1,4 @@
-import { faqContentData } from "@/mocks/faqContent";
+import { faqContentData } from "@/mocks/content";
 
 import {
   Accordion,
