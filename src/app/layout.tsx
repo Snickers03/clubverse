@@ -30,7 +30,7 @@ export default function RootLayout({
         <Toaster richColors position='top-center' />
         <body className={clsx("", montserrat.className)}>
           {/* ! NOTE: Dont apply main classnames to the body tag -> shadcn dialog bug */}
-          <main className='container mx-auto mt-6 px-3 md:px-0'>
+          <main className='container mx-auto px-3 md:px-0'>
             <Navigation />
             {children}
             <Footer />

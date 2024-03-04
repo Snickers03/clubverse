@@ -28,4 +28,12 @@ export interface OrganisationProps {
     organisationId: string,
     newOrganisationName: string,
   ) => Promise<Organisation>;
+
+  addMemberToOrganisation: (
+    forename: string,
+    surname: string,
+    email: string,
+    role: string,
+    organisationId: string,
+  ) => Promise<User>;
 }

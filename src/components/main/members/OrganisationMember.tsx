@@ -1,3 +1,5 @@
+"use client";
+
 import { formatDate } from "@/lib/utils";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { User } from "@prisma/client";
@@ -13,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { AddMemberDialog } from "../settings/add-member/AddMemberDialog";
+import { AddMemberDialog } from "./AddMemberDialog";
 
 const OrganisationMember = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
@@ -22,7 +24,7 @@ const OrganisationMember = () => {
 
   return (
     <div>
-      <div className='mt-3 flex justify-between'>
+      <div className='flex items-center justify-between'>
         <p className='text-xl font-medium'>Mitglieder</p>
         <AddMemberDialog />
       </div>

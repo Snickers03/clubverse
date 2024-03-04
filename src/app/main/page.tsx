@@ -5,7 +5,7 @@ import { useOrganisationStore } from "@/store/organisation-store";
 import { useUser } from "@clerk/nextjs";
 
 import { createUserAction, updateUserAction } from "@/actions/user.actions";
-import Organisation from "@/components/main/organisation/Organisation";
+import Overview from "@/components/main/ overview/Overview";
 
 export default function Page() {
   const { user: clerkUser } = useUser();
@@ -19,6 +19,8 @@ export default function Page() {
   );
 
   useEffect(() => {
+    // TODO: Currently fetches everytime someone click on the tab -> only fetch if not already fetched / stored
+
     if (clerkUser) {
       const createUser = async () => {
         const userRes = await createUserAction(clerkUser);
@@ -48,5 +50,10 @@ export default function Page() {
     }
   }, [clerkUser, createOrganisation, getOrganisation]);
 
-  return <div className='mt-8'>{organisation && <Organisation />}</div>;
+  return (
+    <div>
+      <p className='text-xl font-medium'>Übersicht</p>
+      {organisation && <Overview />}
+    </div>
+  );
 }

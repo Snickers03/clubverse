@@ -1,33 +1,28 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+"use client";
 
-import DonationConfigurator from "./DonationConfigurator";
-import OrganisationMember from "./organisation/OrganisationMember";
+import Link from "next/link";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function MainTabBar() {
   return (
-    <Tabs defaultValue='overview'>
+    <Tabs defaultValue='overview' className='py-2'>
       <div className='w-[400px]'>
         <TabsList className='grid w-full grid-cols-3 '>
-          <TabsTrigger value='overview' className='focus:bg-black'>
-            Übersicht
+          <TabsTrigger asChild value='overview' className='focus:bg-black'>
+            <Link href={"/main"}>Übersicht</Link>
           </TabsTrigger>
-          <TabsTrigger value='members'>Mitglieder</TabsTrigger>
-          <TabsTrigger value='donations'>Spenden</TabsTrigger>
+          <TabsTrigger asChild value='members'>
+            <Link href={"/main/members"}>Mitglieder</Link>
+          </TabsTrigger>
+          <TabsTrigger asChild value='donations'>
+            <Link href={"/main/donations"}>Spenden</Link>
+          </TabsTrigger>
         </TabsList>
       </div>
-      <TabsContent value='overview'>
-        <p>Übersicht mit</p>
-        <ul>
-          <li>- Anzahl Mitglieder, Summe Spenden</li>
-          <li>- aktuelle spendenaktion mit infos</li>
-        </ul>
-      </TabsContent>
-      <TabsContent value='members'>
-        <OrganisationMember />
-      </TabsContent>
-      <TabsContent value='donations'>
-        <DonationConfigurator />
-      </TabsContent>
+      <TabsContent value='overview'></TabsContent>
+
+      <TabsContent value='donations'></TabsContent>
     </Tabs>
   );
 }

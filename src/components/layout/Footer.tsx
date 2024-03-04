@@ -7,7 +7,13 @@ import Header from "./Header";
 
 const Footer = () => {
   const pathname = usePathname();
-  const pathsToMinimize = ["/main", "/sign-up", "/sign-in"];
+  const pathsToMinimize = [
+    "/main",
+    "/main/members",
+    "/main/donations",
+    "/sign-up",
+    "/sign-in",
+  ];
 
   return (
     <footer className='container mx-auto mt-auto'>

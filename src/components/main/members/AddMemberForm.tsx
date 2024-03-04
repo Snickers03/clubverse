@@ -1,6 +1,7 @@
 "use client";
 
 import { AddMemberFormSchema } from "@/schemas";
+import { useOrganisationStore } from "@/store/organisation-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -23,16 +24,29 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { DialogFooter } from "../../../ui/dialog";
-import { Input } from "../../../ui/input";
+import { DialogFooter } from "../../ui/dialog";
+import { Input } from "../../ui/input";
 
 export function AddMemberForm() {
+  const organisation = useOrganisationStore((state) => state.organisation);
+  const addMemberToOrganisation = useOrganisationStore(
+    (state) => state.addMemberToOrganisation,
+  );
+
   const form = useForm<z.infer<typeof AddMemberFormSchema>>({
     resolver: zodResolver(AddMemberFormSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof AddMemberFormSchema>) => {
-    toast.success(JSON.stringify(data, null, 2));
+  const onSubmit = async (data: z.infer<typeof AddMemberFormSchema>) => {
+    const newMember = await addMemberToOrganisation(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.role,
+      organisation?.id || "",
+    );
+
+    toast.success(newMember.firstName + " wurde hinzugefügt");
   };
 
   return (
@@ -41,7 +55,7 @@ export function AddMemberForm() {
         <div className='flex space-x-2'>
           <FormField
             control={form.control}
-            name='forename'
+            name='firstName'
             render={({ field }) => (
               <FormItem>
                 <div className='flex justify-between'>
@@ -56,7 +70,7 @@ export function AddMemberForm() {
           />
           <FormField
             control={form.control}
-            name='surname'
+            name='lastName'
             render={({ field }) => (
               <FormItem>
                 <div className='flex justify-between'>
@@ -99,7 +113,7 @@ export function AddMemberForm() {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value='USER'>User</SelectItem>
-                  <SelectItem value='Admin'>Admin</SelectItem>
+                  <SelectItem value='ADMIN'>Admin</SelectItem>
                 </SelectContent>
               </Select>
 
