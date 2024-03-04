@@ -1,10 +1,8 @@
-"use client";
-
 import { impressumData } from "@/mocks/impressum";
 
 export default function Impressum() {
   return (
-    <div className='bg-gray-100 py-12'>
+    <div className='py-12'>
       <div className='container mx-auto px-6'>
         <h2 className='mb-12 text-center text-4xl font-semibold text-gray-800'>
           Impressum
