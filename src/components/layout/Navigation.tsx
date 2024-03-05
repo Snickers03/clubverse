@@ -4,7 +4,6 @@ import { LogIn } from "lucide-react";
 
 import { Button } from "../ui/button";
 import Header from "./Header";
-import Notifications from "./Notifications";
 
 const Navigation = async () => {
   const user = await currentUser();
@@ -19,7 +18,7 @@ const Navigation = async () => {
       </div>
       {user ? (
         <div className='flex items-center space-x-3'>
-          <Notifications />
+          {/* <Notifications /> */}
           <UserButton afterSignOutUrl='/' />
         </div>
       ) : (

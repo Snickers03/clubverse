@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { User } from "@prisma/client";
@@ -21,6 +22,7 @@ const OrganisationMember = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
 
   const members = organisation?.users || [];
+  const router = useRouter();
 
   return (
     <div>
@@ -40,10 +42,16 @@ const OrganisationMember = () => {
             <TableHead>Role</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className=''>
           {members.map((member: User, index) => {
+            // TODO: BUG - Total screen moves some pixels to the left bc of the TableCells
+
             return (
-              <TableRow key={member.id}>
+              <TableRow
+                key={member.id}
+                className='transition-all duration-200 ease-in-out hover:cursor-pointer hover:bg-gray-100'
+                onClick={() => router.push(`/main/members/${member.id}`)}
+              >
                 <TableCell className='font-medium'>{index + 1}</TableCell>
                 <TableCell>
                   {member.firstName + " " + member.lastName}

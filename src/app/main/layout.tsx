@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
-import { MainTabBar } from "@/components/main/MainTabBar";
+import { NavigationBar } from "@/components/main/NavigationBar";
 import OrganisationHeader from "@/components/main/organisation/OrganisationHeader";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <div className='container mx-auto mt-4'>
       <OrganisationHeader />
-      <MainTabBar />
+      <NavigationBar />
       {children}
     </div>
   );

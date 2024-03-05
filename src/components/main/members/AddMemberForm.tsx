@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { DialogFooter } from "../../ui/dialog";
+import { DialogClose, DialogFooter } from "../../ui/dialog";
 import { Input } from "../../ui/input";
 
 export function AddMemberForm() {
@@ -122,7 +122,9 @@ export function AddMemberForm() {
           )}
         />
         <DialogFooter>
-          <Button type='submit'>Hinzufügen</Button>
+          <DialogClose asChild>
+            <Button type='submit'>Hinzufügen</Button>
+          </DialogClose>
         </DialogFooter>
       </form>
     </Form>
