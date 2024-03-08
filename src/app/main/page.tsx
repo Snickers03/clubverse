@@ -5,7 +5,7 @@ import { useOrganisationStore } from "@/store/organisation-store";
 import { useUser } from "@clerk/nextjs";
 
 import { createUserAction, updateUserAction } from "@/actions/user.actions";
-import Overview from "@/components/main/ overview/Overview";
+import Overview from "@/components/main/overview/Overview";
 
 export default function Page() {
   const { user: clerkUser } = useUser();
