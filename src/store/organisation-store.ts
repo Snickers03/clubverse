@@ -6,7 +6,10 @@ import {
   getOrganisationAction,
   updateOrganisationNameAction,
 } from "@/actions/organisation.actions";
-import { addMemberToOrganisationAction } from "@/actions/organisation/member.actions";
+import {
+  addMemberToOrganisationAction,
+  checkInviteLinkAction,
+} from "@/actions/organisation/member.actions";
 
 import {
   InitialOrganiastionStateProps,
@@ -85,6 +88,19 @@ export const useOrganisationStore = create<OrganisationProps>()(
           ?.adminId as string;
         get().getOrganisation(adminId);
         return newMember;
+      },
+      validateInviteLink: async (inviteLink: string): Promise<string> => {
+        const res = await checkInviteLinkAction(inviteLink);
+        return res;
+      },
+      joinOrganisation: async (
+        userId: string,
+        inviteLink: string,
+      ): Promise<OrganisationWithUsers> => {
+        // add orgaId to user
+        const organisationWithUsers = await getOrganisationAction(userId);
+        set({ organisation: organisationWithUsers });
+        return organisationWithUsers;
       },
     }),
     { name: "organisation-store" },

@@ -36,4 +36,11 @@ export interface OrganisationProps {
     role: string,
     organisationId: string,
   ) => Promise<User>;
+
+  validateInviteLink: (inviteLink: string) => Promise<string>;
+
+  joinOrganisation: (
+    userId: string,
+    inviteLink: string,
+  ) => Promise<OrganisationWithUsers>;
 }

@@ -17,6 +17,10 @@ export default function Page() {
     if (organisation) {
       setCurrentStep("CreateClerkAccount");
     }
+    const inviteId = localStorage.getItem("inviteLink");
+    if (inviteId) {
+      setCurrentStep("CreateClerkAccount");
+    }
   }, []);
 
   switch (currentStep) {
