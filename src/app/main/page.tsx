@@ -52,9 +52,7 @@ export default function Page() {
         if (storedInviteLink) {
           try {
             const inviteLink = storedInviteLink;
-            // validate invite link
             const organisation = await joinOrganisation(userId, inviteLink);
-            console.log("organisation", organisation);
             localStorage.removeItem("inviteLink");
           } catch (error) {
             console.log("Error:", error);

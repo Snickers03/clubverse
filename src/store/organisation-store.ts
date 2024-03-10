@@ -10,6 +10,7 @@ import {
   addMemberToOrganisationAction,
   checkInviteLinkAction,
 } from "@/actions/organisation/member.actions";
+import { joinOrganisationAction } from "@/actions/user.actions";
 
 import {
   InitialOrganiastionStateProps,
@@ -97,7 +98,7 @@ export const useOrganisationStore = create<OrganisationProps>()(
         userId: string,
         inviteLink: string,
       ): Promise<OrganisationWithUsers> => {
-        // add orgaId to user
+        await joinOrganisationAction(userId, inviteLink);
         const organisationWithUsers = await getOrganisationAction(userId);
         set({ organisation: organisationWithUsers });
         return organisationWithUsers;
