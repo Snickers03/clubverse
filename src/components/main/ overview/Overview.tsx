@@ -1,5 +1,9 @@
 const Overview = () => {
-  return <div>Overview</div>;
+  return (
+    <div>
+      <p className='text-xl font-medium'>Übersicht Component</p>
+    </div>
+  );
 };
 
 export default Overview;
