@@ -22,9 +22,8 @@ export default function Page() {
       router.push("/");
     }
     const validateInviteLink = async () => {
-      const res = await validateInviteLinkStore(inviteId as string);
-      console.log("res", res);
-      setOrganisationName(res);
+      const orgaNameRes = await validateInviteLinkStore(inviteId as string);
+      setOrganisationName(orgaNameRes);
     };
     validateInviteLink();
   }, [inviteId, router, validateInviteLinkStore]);
