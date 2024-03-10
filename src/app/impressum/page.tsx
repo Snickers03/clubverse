@@ -1,4 +1,4 @@
-import { impressumData } from "@/mocks/impressum";
+import { impressumData } from "@/mocks/legalData";
 
 export default function Impressum() {
   return (

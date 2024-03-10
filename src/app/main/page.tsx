@@ -70,7 +70,7 @@ export default function Page() {
 
   return (
     <div>
-      <p className='text-xl font-medium'>Übersicht</p>
+      <p className='mb-4 text-xl font-medium'>Übersicht</p>
       {organisation && <Overview />}
     </div>
   );

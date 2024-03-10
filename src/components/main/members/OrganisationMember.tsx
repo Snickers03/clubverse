@@ -26,7 +26,7 @@ const OrganisationMember = () => {
 
   return (
     <div>
-      <div className='flex items-center justify-between'>
+      <div className='mb-4 flex items-center justify-between'>
         <p className='text-xl font-medium'>Mitglieder</p>
         <AddMemberDialog />
       </div>

@@ -13,12 +13,15 @@ const Navigation = async () => {
       <Header />
       <div className='hidden space-x-12 md:block'>
         <Link href={"/"}>Lösungen</Link>
-        <Link href={"/team"}>Über uns</Link>
+        <Link href={"/team"}>Team</Link>
         <Link href={"/faq"}>FAQ</Link>
       </div>
       {user ? (
         <div className='flex items-center space-x-3'>
           {/* <Notifications /> */}
+          <Button size={"sm"} asChild>
+            <Link href={"/main"}>Dashboard</Link>
+          </Button>
           <UserButton afterSignOutUrl='/' />
         </div>
       ) : (
