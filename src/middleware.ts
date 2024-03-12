@@ -8,7 +8,11 @@ export default authMiddleware({
     "/",
     "/faq",
     "/impressum",
+    "/datenschutz",
+    "/agb",
     "/invite",
+    "/team",
+    "/lösungen",
     "/api/organisation/invite",
   ],
 });
