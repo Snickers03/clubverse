@@ -1,6 +1,4 @@
-"use client";
-
-import { impressumData } from "@/mocks/impressum";
+import { impressumData } from "@/mocks/legalData";
 
 export default function Impressum() {
   return (
@@ -11,7 +9,9 @@ export default function Impressum() {
         </h2>
         <div className='mx-3'>
           <div className='mb-6 w-full px-3 md:mb-6 md:w-1/2'>
-            <h3 className='mb-3 text-2xl font-semibold text-gray-800'>Angaben gemäß § 5 TMG</h3>
+            <h3 className='mb-3 text-2xl font-semibold text-gray-800'>
+              Angaben gemäß § 5 TMG
+            </h3>
             <p className='text-gray-600'>{impressumData.name}</p>
             <p className='text-gray-600'>{impressumData.address}</p>
           </div>
@@ -31,9 +31,7 @@ export default function Impressum() {
             <h3 className='mb-3 text-2xl font-semibold text-gray-800'>
               Haftungshinweis
             </h3>
-            <p className='text-gray-600'>
-               {impressumData.information}
-            </p>
+            <p className='text-gray-600'>{impressumData.information}</p>
           </div>
         </div>
       </div>

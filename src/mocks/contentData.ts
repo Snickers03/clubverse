@@ -25,27 +25,36 @@ export const faqContentData = [
   },
 ];
 
-export const clubVerseSteps = [
+export const landingFeatures = [
   {
     id: 1,
-    title: "Registrieren",
-    image: "/landing/features/register.jpg",
+    title: "Mitglieder verwalten",
     description:
-      "Starte den digitalen Wandel deines Vereins mit einer einfachen Registrierung und lade deine Mitglieder für eine gemeinsame, effiziente Organisation ein.",
+      "Verwalte Mitglieder und Aktivitäten zentral auf einer Plattform, um deinen Verein effizient und mit minimalem Aufwand zu führen.",
+    imageSrc: "/landing/features/test2.png",
+    imageAlt: "Picture of the author",
+    reverse: false,
+    category: "Verwaltung",
   },
   {
     id: 2,
-    title: "Verwalten",
-    image: "/landing/features/manage.jpg",
+    title: "Spendenaktionen erstellen",
     description:
-      "Verwalte Mitglieder und Aktivitäten zentral auf einer Plattform, um deinen Verein effizient und mit minimalem Aufwand zu führen.",
+      "Erstelle Spendenaktionen und sammle Gelder für Projekte, die dir am Herzen liegen. Teile deine Aktionen und erreiche mehr Menschen.",
+    imageSrc: "/landing/features/test1.png",
+    imageAlt: "Picture of the author",
+    reverse: true,
+    category: "Spenden",
   },
   {
     id: 3,
-    title: "Gestalten",
-    image: "/landing/features/connect.jpg",
+    title: "Events planen",
     description:
       "Gestalte die Zukunft deines Vereins durch Vernetzung, teile Erfahrungen und initiiere Projekte, um die Gemeinschaft zu stärken.",
+    imageSrc: "/landing/features/test3.png",
+    imageAlt: "Picture of the author",
+    reverse: false,
+    category: "Events",
   },
 ];
 

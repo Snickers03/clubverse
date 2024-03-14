@@ -1,3 +1,5 @@
+"use client";
+
 import { useOrganisationStore } from "@/store/organisation-store";
 
 const DonationConfigurator = () => {

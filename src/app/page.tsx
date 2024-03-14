@@ -1,5 +1,5 @@
 import FeatureCard from "@/components/home/FeatureCard";
-import TeamCard from "@/components/home/TeamCard";
+import OurMissionCard from "@/components/home/OurMissionCard";
 import WelcomeCard from "@/components/home/WelcomeCard";
 
 export default function Home() {
@@ -7,7 +7,8 @@ export default function Home() {
     <main>
       <WelcomeCard />
       <FeatureCard />
-      <TeamCard />
+      <OurMissionCard />
+      {/* <TeamCard /> */}
     </main>
   );
 }

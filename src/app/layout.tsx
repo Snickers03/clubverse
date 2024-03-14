@@ -29,13 +29,13 @@ export default function RootLayout({
       <html lang='de'>
         <Toaster richColors position='top-center' />
         <body
-          className={clsx(
-            "container mx-auto mt-6 px-3 md:px-0",
-            montserrat.className,
-          )}
+          className={clsx("flex min-h-screen flex-col", montserrat.className)}
         >
-          <Navigation />
-          {children}
+          {/* ! NOTE: Dont apply main classnames to the body tag -> shadcn dialog bug */}
+          <main className='container mx-auto flex-grow px-3 md:px-0'>
+            <Navigation />
+            {children}
+          </main>
           <Footer />
         </body>
       </html>
