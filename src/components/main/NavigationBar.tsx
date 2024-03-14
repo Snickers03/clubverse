@@ -29,10 +29,12 @@ export function NavigationBar() {
               key={link.name}
               href={link.href}
               className={clsx(
-                "bg-white py-1 text-center hover:bg-gray-200",
+                "bg-white py-1 text-center ",
                 index === 0 && "rounded-bl-md rounded-tl-md",
                 index === 2 && "rounded-br-md rounded-tr-md",
-                activePath === link.href && "bg-gray-300",
+                activePath === link.href &&
+                  "font-bold text-blue-400 hover:cursor-default",
+                activePath !== link.href && "hover:bg-gray-200",
               )}
             >
               {link.name}

@@ -14,6 +14,7 @@ export default authMiddleware({
     "/team",
     "/lösungen",
     "/api/organisation/invite",
+    "/api/uploadthing",
   ],
 });
 export const config = {
