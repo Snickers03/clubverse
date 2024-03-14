@@ -24,15 +24,30 @@ model User {
 }
 
 model Organisation {
-  id         String   @id @default(uuid())
+  id         String     @id @default(uuid())
   adminId    String?
   name       String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  deleted    Boolean    @default(false)
+  inviteLink String?    @unique
   type       String
-  inviteLink String?  @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  deleted    Boolean  @default(false)
+  Donation   Donation[]
   users      User[]
+}
+
+model Donation {
+  id             String       @id
+  firstName      String
+  lastName       String
+  email          String
+  amount         Float
+  reason         String?
+  createdAt      DateTime     @default(now())
+  organisationId String
+  Organisation   Organisation @relation(fields: [organisationId], references: [id])
+
+  @@index([organisationId], map: "Donation_organisationId_fkey")
 }
 
 enum Role {
