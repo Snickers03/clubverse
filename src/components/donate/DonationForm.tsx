@@ -29,7 +29,7 @@ export function DonationForm() {
   };
 
   return (
-    <div className='py-12'>
+    <div className='pt-4'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -110,7 +110,7 @@ export function DonationForm() {
           />
           <FormField
             control={form.control}
-            name='donationPurpose'
+            name='reason'
             render={({ field }) => (
               <FormItem>
                 <div className='flex justify-between'>
