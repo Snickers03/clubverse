@@ -17,6 +17,9 @@ export default function Page() {
   const createOrganisation = useOrganisationStore(
     (state) => state.createOrganisation,
   );
+  const joinOrganisation = useOrganisationStore(
+    (state) => state.joinOrganisation,
+  );
 
   useEffect(() => {
     // TODO: Currently fetches everytime someone click on the tab -> only fetch if not already fetched / stored
@@ -26,6 +29,7 @@ export default function Page() {
         const userRes = await createUserAction(clerkUser);
         const userId = userRes.id;
         const storedOrganisation = localStorage.getItem("organisation");
+        const storedInviteLink = localStorage.getItem("inviteLink");
 
         if (storedOrganisation) {
           try {
@@ -42,17 +46,29 @@ export default function Page() {
           } catch (error) {
             console.log("Error:", error);
           }
-        } else {
-          await getOrganisation(userId);
+          return;
         }
+
+        if (storedInviteLink) {
+          try {
+            const inviteLink = storedInviteLink;
+            const organisation = await joinOrganisation(userId, inviteLink);
+            localStorage.removeItem("inviteLink");
+          } catch (error) {
+            console.log("Error:", error);
+          }
+          return;
+        }
+
+        await getOrganisation(userId);
       };
       createUser();
     }
-  }, [clerkUser, createOrganisation, getOrganisation]);
+  }, [clerkUser, createOrganisation, getOrganisation, joinOrganisation]);
 
   return (
     <div>
-      <p className='text-xl font-medium'>Übersicht</p>
+      <p className='mb-4 text-xl font-medium'>Übersicht</p>
       {organisation && <Overview />}
     </div>
   );

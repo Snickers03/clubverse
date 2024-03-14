@@ -26,27 +26,8 @@ export const createOrganisationFormSchema = z.object({
   }),
 });
 
-export const donationFormSchema = z.object({
-  firstName: z.string({
-    required_error: "*",
-  }),
-  lastName: z.string({
-    required_error: "*",
-  }),
-  email: z
-    .string({
-      required_error: "*",
-    })
-    .email({
-      message: "* Ungültige Email-Adresse",
-    }),
-  donationAmount: z
-    .number({
-      required_error: "*",
-    })
-    .positive("Spendenbetrag muss größer als 0 sein."),
-  donationPurpose: z.string().optional(),
-  agreeToTerms: z.boolean({
+export const changeOrganisationNameFormSchema = z.object({
+  name: z.string({
     required_error: "*",
   }),
 });

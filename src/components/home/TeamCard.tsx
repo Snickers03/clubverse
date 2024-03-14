@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { teamMembers } from "@/mocks/content";
+import { teamMembers } from "@/mocks/contentData";
 
 const TeamCard = () => {
   return (

@@ -1,4 +1,4 @@
-import { AccordionDemo } from "@/components/faq/AccordionDemo";
+import { FaqAccordion } from "@/components/faq/FaqAccordion";
 
 export default function Page() {
   return (
@@ -6,11 +6,11 @@ export default function Page() {
       <p className='text-center text-2xl font-medium'>
         Häufig gestellte Fragen
       </p>
-      <AccordionDemo />
-      <p className='py-6 text-center text-slate-700'>
+      <FaqAccordion />
+      {/* <p className='py-6 text-center text-slate-700'>
         Du hast keine Antwort gefunden?
       </p>
-      <p className='text-center'>TODO: Support kontaktieren</p>
+      <p className='text-center'>Support kontaktieren</p> */}
     </main>
   );
 }
