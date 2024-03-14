@@ -1,18 +1,27 @@
+import { changeOrganisationNameFormSchema } from "@/schemas";
 import { useOrganisationStore } from "@/store/organisation-store";
-import { Form, Formik } from "formik";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import InputUI from "@/components/ui/InputUI";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 export function ChangeOrganisationNameDialog() {
   const organisation = useOrganisationStore((state) => state.organisation);
@@ -20,6 +29,20 @@ export function ChangeOrganisationNameDialog() {
   const updateOrganisationName = useOrganisationStore(
     (state) => state.updateOrganisationName,
   );
+
+  const form = useForm<z.infer<typeof changeOrganisationNameFormSchema>>({
+    resolver: zodResolver(changeOrganisationNameFormSchema),
+    defaultValues: {
+      name: organisation?.name,
+    },
+  });
+
+  const onSubmit = async (
+    values: z.infer<typeof changeOrganisationNameFormSchema>,
+  ) => {
+    if (values.name === organisation?.name) return;
+    await updateOrganisationName(organisation?.id ?? "", values.name);
+  };
 
   return (
     <Dialog>
@@ -35,32 +58,28 @@ export function ChangeOrganisationNameDialog() {
             Ändere den Namen deiner Organisation.
           </DialogDescription>
         </DialogHeader>
-        <Formik
-          initialValues={{ name: organisation?.name ?? "" }}
-          onSubmit={async (values) => {
-            if (values.name === organisation?.name) return;
-            await updateOrganisationName(organisation?.id ?? "", values.name);
-          }}
-        >
-          {({ errors }) => (
-            <Form>
-              <div className='py-4'>
-                <InputUI
-                  label='Name'
-                  placeholder='Organisationname'
-                  fieldName='name'
-                  type='text'
-                  error={errors.name}
-                />
-              </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button type='submit'>Ändern</Button>
-                </DialogClose>
-              </DialogFooter>
-            </Form>
-          )}
-        </Formik>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
+            <div>
+              <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <div className='flex justify-between'>
+                      <FormLabel>Organisationname</FormLabel>
+                      <FormMessage />
+                    </div>
+                    <FormControl>
+                      <Input placeholder='Organisationsname...' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button type='submit'>Ändern</Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

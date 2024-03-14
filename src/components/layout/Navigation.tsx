@@ -22,6 +22,7 @@ const Navigation = async () => {
           <Button size={"sm"} asChild>
             <Link href={"/main"}>Dashboard</Link>
           </Button>
+
           <UserButton afterSignOutUrl='/' />
         </div>
       ) : (

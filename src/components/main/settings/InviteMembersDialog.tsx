@@ -58,7 +58,7 @@ export function InviteMembersDialog() {
         <DialogFooter className='sm:justify-start'>
           <DialogClose asChild>
             <Button type='button' variant='secondary'>
-              Close
+              Schließen
             </Button>
           </DialogClose>
         </DialogFooter>
