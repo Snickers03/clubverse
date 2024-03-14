@@ -49,3 +49,27 @@ export const updateUserAction = async (
 
   return data;
 };
+
+export const joinOrganisationAction = async (
+  userId: string,
+  inviteLink: string,
+): Promise<User> => {
+  const res = await fetch("/api/user/join", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      inviteLink,
+    }),
+  });
+
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data;
+};

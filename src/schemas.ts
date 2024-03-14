@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 export const AddMemberFormSchema = z.object({
-  forename: z.string({
+  firstName: z.string({
     required_error: "*",
   }),
-  surname: z.string({
+  lastName: z.string({
     required_error: "*",
   }),
   email: z
@@ -14,7 +14,7 @@ export const AddMemberFormSchema = z.object({
     .email({
       message: "* Ungültige Email-Adresse",
     }),
-  role: z.string().optional(),
+  role: z.string(),
 });
 
 export const createOrganisationFormSchema = z.object({
