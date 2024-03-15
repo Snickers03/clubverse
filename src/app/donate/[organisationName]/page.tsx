@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { formatDonationUrl } from "@/lib/utils";
 
 import DonationForm from "@/components/donate/DonationForm";
+import { checkOrganisationExists, createDonationAction, getOrganisationID } from "@/actions/donate.action";
 
 type donationStepType =
   | "validate"
@@ -18,25 +19,44 @@ export default function Page() {
 
   const [donationStep, setDonationStep] =
     useState<donationStepType>("validate");
+  const [firstName, setFirstName] = useState<string | undefined>(undefined);
+  const [lastName, setLastName] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    // TODO Manu: API Call check if organisation exists
-    // setDonationStep("donate");
+    const fetchData = async () => {
+      const exist = await checkOrganisationExists(organisationName);
+      if (exist) {
+        setDonationStep("donate");
+      } else {
+        setDonationStep("invalid organisation");
+      }
+    };
+    fetchData();
   }, [organisationName]);
+
+
+  const handleDonationSuccess = (firstName: string, lastName: string) => {
+    setDonationStep("success");
+    setFirstName(firstName);
+    setLastName(lastName);
+  };
 
   switch (donationStep) {
     case "validate":
       return (
         <main className='mt-10'>
           <p className='text-center text-2xl font-medium'>
-            Spenden: {organisationName}
+            Searching
           </p>
         </main>
       );
     case "donate":
       return (
         <main className='mt-10'>
-          <DonationForm />
+          <p className='text-center text-2xl font-medium'>
+            Spenden: {organisationName}
+          </p>
+          <DonationForm onSuccess={handleDonationSuccess} />
         </main>
       );
     case "invalid organisation":
@@ -51,7 +71,7 @@ export default function Page() {
       return (
         <main className='mt-10'>
           <p className='text-center text-2xl font-medium'>
-            Vielen Dank für Ihre Spende!
+            Vielen Dank, {firstName} {lastName}, für deine Spende!
           </p>
         </main>
       );

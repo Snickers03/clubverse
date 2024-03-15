@@ -8,31 +8,32 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(uuid())
+  id             String        @id @default(uuid())
   firstName      String
   lastName       String
-  email          String    @unique
+  email          String        @unique
   organisationId String?
   address        String?
   phoneNumber    String?
   birthDate      DateTime?
-  joinDate       DateTime  @default(now())
-  role           Role      @default(USER)
+  joinDate       DateTime      @default(now())
+  role           Role          @default(USER)
+  Organisation   Organisation? @relation(fields: [organisationId], references: [id])
 
-  Organisation Organisation? @relation(fields: [organisationId], references: [id])
+  @@index([organisationId], map: "User_organisationId_fkey")
 }
 
 model Organisation {
   id         String     @id @default(uuid())
   adminId    String?
   name       String
-  type       String
-  inviteLink String?    @unique
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   deleted    Boolean    @default(false)
-  users      User[]
+  inviteLink String?    @unique
+  type       String
   donations  Donation[]
+  users      User[]
 }
 
 model Donation {
@@ -45,6 +46,8 @@ model Donation {
   createdAt      DateTime     @default(now())
   organisationId String
   Organisation   Organisation @relation(fields: [organisationId], references: [id])
+
+  @@index([organisationId], map: "Donation_organisationId_fkey")
 }
 
 enum Role {

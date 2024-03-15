@@ -54,4 +54,5 @@ export const donationFormSchema = z.object({
       message: "* Der Spendenbetrag muss positiv sein",
     }),
   reason: z.string().optional(),
+  id: z.string(),
 });

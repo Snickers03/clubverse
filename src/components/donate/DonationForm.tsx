@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { usePathname } from "next/navigation";
+import { formatDonationUrl } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,17 +18,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createDonationAction, getOrganisationID } from "@/actions/donate.action";
 
-export function DonationForm() {
+export function DonationForm({ onSuccess }: { onSuccess: (firstName: string, lastName: string) => void }) {
   const form = useForm<z.infer<typeof donationFormSchema>>({
     resolver: zodResolver(donationFormSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
       donationAmount: 0,
+      reason: "",
+      id: "",
     },
   });
 
+  const pathname = usePathname();
+  const organisationName = formatDonationUrl(pathname);
+
   const onSubmit = async (data: z.infer<typeof donationFormSchema>) => {
-    console.log("Test");
+    const id = await getOrganisationID(organisationName);
+    const createdDonation = await createDonationAction(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.donationAmount,
+      data.reason || "",
+      id,
+    );
+    onSuccess(data.firstName, data.lastName);
   };
 
   return (
