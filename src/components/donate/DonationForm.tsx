@@ -18,9 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createDonationAction, getOrganisationID } from "@/actions/donate.action";
+import { checkOrganisationExists, createDonationAction, } from "@/actions/donate.action";
 
-export function DonationForm({ onSuccess }: { onSuccess: (firstName: string, lastName: string) => void }) {
+interface DonationFormProps {
+  handleDonationSuccess: (fullName: string) => void;
+}
+
+export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
   const form = useForm<z.infer<typeof donationFormSchema>>({
     resolver: zodResolver(donationFormSchema),
     defaultValues: {
@@ -37,7 +41,8 @@ export function DonationForm({ onSuccess }: { onSuccess: (firstName: string, las
   const organisationName = formatDonationUrl(pathname);
 
   const onSubmit = async (data: z.infer<typeof donationFormSchema>) => {
-    const id = await getOrganisationID(organisationName);
+    const id = await checkOrganisationExists(organisationName);
+    if (!id) throw new Error("Organisation not found");
     const createdDonation = await createDonationAction(
       data.firstName,
       data.lastName,
@@ -46,7 +51,8 @@ export function DonationForm({ onSuccess }: { onSuccess: (firstName: string, las
       data.reason || "",
       id,
     );
-    onSuccess(data.firstName, data.lastName);
+    const fullName = createdDonation.firstName + " " + createdDonation.lastName;
+    handleDonationSuccess(fullName);
   };
 
   return (

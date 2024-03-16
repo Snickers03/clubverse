@@ -31,7 +31,6 @@ export async function POST(req: Request) {
                 amount: body.amount,
                 reason: body.reason,
                 organisationId: body.id,
-                createdAt: new Date(),
             },
         });
 

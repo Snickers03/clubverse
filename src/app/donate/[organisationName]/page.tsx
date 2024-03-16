@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { formatDonationUrl } from "@/lib/utils";
 
 import DonationForm from "@/components/donate/DonationForm";
-import { checkOrganisationExists, createDonationAction, getOrganisationID } from "@/actions/donate.action";
+import { checkOrganisationExists } from "@/actions/donate.action";
 
-type donationStepType =
+type DonationStepType =
   | "validate"
   | "donate"
   | "invalid organisation"
@@ -18,27 +18,26 @@ export default function Page() {
   const organisationName = formatDonationUrl(pathname);
 
   const [donationStep, setDonationStep] =
-    useState<donationStepType>("validate");
-  const [firstName, setFirstName] = useState<string | undefined>(undefined);
-  const [lastName, setLastName] = useState<string | undefined>(undefined);
+    useState<DonationStepType>("validate");
+  const [fullName, setFullName] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const exist = await checkOrganisationExists(organisationName);
-      if (exist) {
-        setDonationStep("donate");
-      } else {
+    const checkOrganisationExistsFunc = async () => {
+      const organisationId = await checkOrganisationExists(organisationName);
+      if (!organisationId) {
         setDonationStep("invalid organisation");
+        return;
       }
+      setDonationStep("donate");
+
     };
-    fetchData();
+    checkOrganisationExistsFunc();
   }, [organisationName]);
 
 
-  const handleDonationSuccess = (firstName: string, lastName: string) => {
+  const handleDonationSuccess = (fullName: string) => {
     setDonationStep("success");
-    setFirstName(firstName);
-    setLastName(lastName);
+    setFullName(fullName);
   };
 
   switch (donationStep) {
@@ -56,7 +55,7 @@ export default function Page() {
           <p className='text-center text-2xl font-medium'>
             Spenden: {organisationName}
           </p>
-          <DonationForm onSuccess={handleDonationSuccess} />
+          <DonationForm handleDonationSuccess={handleDonationSuccess} />
         </main>
       );
     case "invalid organisation":
@@ -71,7 +70,7 @@ export default function Page() {
       return (
         <main className='mt-10'>
           <p className='text-center text-2xl font-medium'>
-            Vielen Dank, {firstName} {lastName}, für deine Spende!
+            Vielen Dank, {fullName}, für deine Spende!
           </p>
         </main>
       );

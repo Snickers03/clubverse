@@ -22,12 +22,13 @@ export async function POST(req: Request) {
             },
         });
 
-        if (organisation) {
-            return new Response(JSON.stringify(organisation), { status: 200 });
-        } else {
+        if (!organisation) {
             return new Response(JSON.stringify(null), { status: 400 });
         }
+
+        return new Response(JSON.stringify(organisation), { status: 200 });
+
     } catch (error) {
-        return handleApiError(error, "ERROR: POST /api/donate");
+        return handleApiError(error, "ERROR: POST /api/donation/find");
     }
 };

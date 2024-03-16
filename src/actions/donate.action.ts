@@ -1,10 +1,10 @@
-import { Donation } from "@prisma/client";
+import { Donation, Organisation } from "@prisma/client";
 
 export const checkOrganisationExists = async (
     organisationName: string,
-): Promise<boolean> => {
+): Promise<string | null> => {
     try {
-        const res = await fetch("/api/donate", {
+        const res = await fetch("/api/donation/find", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -14,47 +14,17 @@ export const checkOrganisationExists = async (
 
         if (!res.ok) {
             if (res.status === 400) {
-                return false;
+                return null;
             } else {
                 throw new Error("Error checking organisation");
             }
         }
-
-        const data = await res.json();
-        return true;
-
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-};
-
-export const getOrganisationID = async (
-    organisationName: string,
-): Promise<string> => {
-    try {
-        const res = await fetch("/api/donate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ organisationName }),
-        });
-
-        if (!res.ok) {
-            if (res.status === 400) {
-                return "Organisation not found";
-            } else {
-                throw new Error("Error getting organisation ID");
-            }
-        }
-
-        const data = await res.json();
-        return data.id;
+        const dataOrganisation: Organisation = await res.json();
+        return dataOrganisation.id;
 
     } catch (error) {
-        console.error(error);
-        return "Error getting organisation ID";
+        throw new Error("Error checking organisation");
+
     }
 };
 
@@ -63,7 +33,7 @@ export const createDonationAction = async (
     lastName: string,
     email: string,
     amount: number,
-    reason: string | undefined,
+    reason: string,
     id: string,
 ): Promise<Donation> => {
     const res = await fetch("/api/donation/create", {
