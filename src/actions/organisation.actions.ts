@@ -63,3 +63,24 @@ export const updateOrganisationNameAction = async (
 
   return data;
 };
+
+export const updateOrganisationLogoAction = async (
+  organisationId: string,
+  newLogoUrl: string,
+): Promise<OrganisationWithUsers> => {
+  const res = await fetch("/api/organisation/logo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ organisationId, newLogoUrl }),
+  });
+
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data;
+};

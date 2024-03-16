@@ -8,6 +8,7 @@ import {
 import {
   createOrganisationAction,
   getOrganisationAction,
+  updateOrganisationLogoAction,
   updateOrganisationNameAction,
 } from "@/actions/organisation.actions";
 import {
@@ -130,6 +131,18 @@ export const useOrganisationStore = create<OrganisationProps>()(
           resOrganisationId,
         );
         return newDonation;
+      updateOrganisationLogo: async (
+        organisationId: string,
+        newLogoUrl: string,
+      ) => {
+        const updatedOrganisation = await updateOrganisationLogoAction(
+          organisationId,
+          newLogoUrl,
+        );
+
+        set({ organisation: updatedOrganisation });
+
+        return updatedOrganisation;
       },
     }),
     { name: "organisation-store" },

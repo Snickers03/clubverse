@@ -42,10 +42,9 @@ const OrganisationMember = () => {
             <TableHead>Role</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className=''>
-          {members.map((member: User, index) => {
-            // TODO: BUG - Total screen moves some pixels to the left bc of the TableCells
-
+        <TableBody>
+          {members.slice(0, 8).map((member: User, index) => {
+            // TODO: BUG - Total screen moves some pixels to the left bc of the TableCells.length > 8
             return (
               <TableRow
                 key={member.id}

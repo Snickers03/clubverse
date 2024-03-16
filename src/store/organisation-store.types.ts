@@ -52,4 +52,8 @@ export interface OrganisationProps {
     reason: string,
     organisationName: string,
   ) => Promise<Donation>;
+  updateOrganisationLogo: (
+    newLogoUrl: string,
+    organisationId: string,
+  ) => Promise<OrganisationWithUsers>;
 }

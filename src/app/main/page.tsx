@@ -52,7 +52,7 @@ export default function Page() {
         if (storedInviteLink) {
           try {
             const inviteLink = storedInviteLink;
-            const organisation = await joinOrganisation(userId, inviteLink);
+            await joinOrganisation(userId, inviteLink);
             localStorage.removeItem("inviteLink");
           } catch (error) {
             console.log("Error:", error);
@@ -69,7 +69,7 @@ export default function Page() {
   return (
     <div>
       <p className='mb-4 text-xl font-medium'>Übersicht</p>
-      {organisation && <Overview />}
+      <Overview />
     </div>
   );
 }

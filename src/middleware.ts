@@ -17,6 +17,7 @@ export default authMiddleware({
     "/api/donation/find",
     "/api/donation/create",
     "/donate/:organisationName",
+    "/api/uploadthing",
   ],
 });
 export const config = {
