@@ -43,4 +43,9 @@ export interface OrganisationProps {
     userId: string,
     inviteLink: string,
   ) => Promise<OrganisationWithUsers>;
+
+  updateOrganisationLogo: (
+    newLogoUrl: string,
+    organisationId: string,
+  ) => Promise<OrganisationWithUsers>;
 }

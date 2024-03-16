@@ -4,6 +4,7 @@ import { devtools } from "zustand/middleware";
 import {
   createOrganisationAction,
   getOrganisationAction,
+  updateOrganisationLogoAction,
   updateOrganisationNameAction,
 } from "@/actions/organisation.actions";
 import {
@@ -102,6 +103,19 @@ export const useOrganisationStore = create<OrganisationProps>()(
         const organisationWithUsers = await getOrganisationAction(userId);
         set({ organisation: organisationWithUsers });
         return organisationWithUsers;
+      },
+      updateOrganisationLogo: async (
+        organisationId: string,
+        newLogoUrl: string,
+      ) => {
+        const updatedOrganisation = await updateOrganisationLogoAction(
+          organisationId,
+          newLogoUrl,
+        );
+
+        set({ organisation: updatedOrganisation });
+
+        return updatedOrganisation;
       },
     }),
     { name: "organisation-store" },

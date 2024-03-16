@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import ChangeOrganisationIconDialog from "./ChangeOrganisationIconDialog";
+import ChangeOrganisationLogoDialog from "./ChangeOrganisationLogoDialog";
 import { ChangeOrganisationNameDialog } from "./ChangeOrganisationNameDialog";
 import { InviteMembersDialog } from "./InviteMembersDialog";
 
@@ -31,7 +31,7 @@ const SettingsDropdown = () => {
             <ChangeOrganisationNameDialog />
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <ChangeOrganisationIconDialog />
+            <ChangeOrganisationLogoDialog />
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <InviteMembersDialog />
