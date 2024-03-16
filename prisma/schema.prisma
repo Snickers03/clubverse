@@ -18,7 +18,7 @@ model User {
   birthDate      DateTime?
   joinDate       DateTime      @default(now())
   role           Role          @default(USER)
-  organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  Organisation   Organisation? @relation(fields: [organisationId], references: [id])
 
   @@index([organisationId], map: "User_organisationId_fkey")
 }
@@ -33,12 +33,12 @@ model Organisation {
   deleted    Boolean    @default(false)
   inviteLink String?    @unique
   type       String
-  Donation   Donation[]
+  donations  Donation[]
   users      User[]
 }
 
 model Donation {
-  id             String       @id
+  id             String       @id @default(uuid())
   firstName      String
   lastName       String
   email          String

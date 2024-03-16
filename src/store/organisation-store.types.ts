@@ -1,4 +1,4 @@
-import { Organisation, User } from "@prisma/client";
+import { Donation, Organisation, User } from "@prisma/client";
 
 export interface OrganisationWithUsers extends Organisation {
   users: User[] | null;
@@ -44,6 +44,14 @@ export interface OrganisationProps {
     inviteLink: string,
   ) => Promise<OrganisationWithUsers>;
 
+  createDonation: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    donationAmount: number,
+    reason: string,
+    organisationName: string,
+  ) => Promise<Donation>;
   updateOrganisationLogo: (
     newLogoUrl: string,
     organisationId: string,

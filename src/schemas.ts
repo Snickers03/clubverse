@@ -31,3 +31,21 @@ export const changeOrganisationNameFormSchema = z.object({
     required_error: "*",
   }),
 });
+
+export const donationFormSchema = z.object({
+  firstName: z.string({
+    required_error: "*",
+  }),
+  lastName: z.string({
+    required_error: "*",
+  }),
+  email: z
+    .string({
+      required_error: "*",
+    })
+    .email({
+      message: "* Ungültige Email-Adresse",
+    }),
+  donationAmount: z.number().optional(),
+  reason: z.string().optional(),
+});

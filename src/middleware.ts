@@ -14,6 +14,9 @@ export default authMiddleware({
     "/team",
     "/lösungen",
     "/api/organisation/invite",
+    "/api/donation/find",
+    "/api/donation/create",
+    "/donate/:organisationName",
     "/api/uploadthing",
   ],
 });

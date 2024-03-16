@@ -13,3 +13,14 @@ export const formatDate = (date: Date): string => {
 export const createOrganisationInviteCode = () => {
   return Math.random().toString(36).substring(2, 15);
 };
+
+export const formatDonationUrl = (donationPathName: string) => {
+  const organisationPath =
+    donationPathName.split("/").pop()?.replaceAll("-", " ") ?? "";
+
+  const formattedOrganisationName = organisationPath
+    .split(" ")
+    .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
+    .join(" ");
+  return formattedOrganisationName;
+};
