@@ -46,13 +46,6 @@ export const donationFormSchema = z.object({
     .email({
       message: "* Ungültige Email-Adresse",
     }),
-  donationAmount: z
-    .number({
-      required_error: "*",
-    })
-    .positive({
-      message: "* Der Spendenbetrag muss positiv sein",
-    }),
+  donationAmount: z.number().optional(),
   reason: z.string().optional(),
-  id: z.string(),
 });

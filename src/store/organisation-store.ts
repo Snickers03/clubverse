@@ -2,6 +2,10 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 import {
+  checkOrganisationExistsAction,
+  createDonationAction,
+} from "@/actions/donate.action";
+import {
   createOrganisationAction,
   getOrganisationAction,
   updateOrganisationNameAction,
@@ -102,6 +106,30 @@ export const useOrganisationStore = create<OrganisationProps>()(
         const organisationWithUsers = await getOrganisationAction(userId);
         set({ organisation: organisationWithUsers });
         return organisationWithUsers;
+      },
+      createDonation: async (
+        firstName: string,
+        lastName: string,
+        email: string,
+        donationAmount: number,
+        reason: string,
+        organisationName: string,
+      ) => {
+        const resOrganisationId =
+          await checkOrganisationExistsAction(organisationName);
+        if (!resOrganisationId) {
+          throw new Error("Organisation not found");
+        }
+        console.log(resOrganisationId);
+        const newDonation = await createDonationAction(
+          firstName,
+          lastName,
+          email,
+          donationAmount,
+          reason,
+          resOrganisationId,
+        );
+        return newDonation;
       },
     }),
     { name: "organisation-store" },

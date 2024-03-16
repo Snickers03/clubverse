@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDonationUrl } from "@/lib/utils";
+import { Donation } from "@prisma/client";
 
+import { checkOrganisationExistsAction } from "@/actions/donate.action";
+import { Button } from "@/components/ui/button";
 import DonationForm from "@/components/donate/DonationForm";
-import { checkOrganisationExists } from "@/actions/donate.action";
+import LoadingAnimation from "@/components/LoadingAnimation";
 
 type DonationStepType =
   | "validate"
@@ -19,59 +23,84 @@ export default function Page() {
 
   const [donationStep, setDonationStep] =
     useState<DonationStepType>("validate");
-  const [fullName, setFullName] = useState<string | null>(null);
+  const [finishedDonation, setFinishedDonation] = useState<Donation | null>(
+    null,
+  );
 
   useEffect(() => {
     const checkOrganisationExistsFunc = async () => {
-      const organisationId = await checkOrganisationExists(organisationName);
+      const organisationId =
+        await checkOrganisationExistsAction(organisationName);
       if (!organisationId) {
         setDonationStep("invalid organisation");
         return;
       }
       setDonationStep("donate");
-
     };
     checkOrganisationExistsFunc();
   }, [organisationName]);
 
-
-  const handleDonationSuccess = (fullName: string) => {
+  const handleDonationSuccess = (finishedDonation: Donation) => {
     setDonationStep("success");
-    setFullName(fullName);
+    setFinishedDonation(finishedDonation);
   };
 
   switch (donationStep) {
     case "validate":
-      return (
-        <main className='mt-10'>
-          <p className='text-center text-2xl font-medium'>
-            Searching
-          </p>
-        </main>
-      );
+      return <LoadingAnimation />;
     case "donate":
       return (
-        <main className='mt-10'>
-          <p className='text-center text-2xl font-medium'>
-            Spenden: {organisationName}
+        <main className='mx-auto w-1/3 pt-4'>
+          <p className='text-center text-2xl font-bold'>{organisationName}</p>
+          <p className='py-2 text-sm text-slate-800'>
+            Dies ist die Spenderseite der {organisationName}. Lorem ipsum dolor,
+            sit amet consectetur adipisicing elit. Commodi quis excepturi rem
+            sapiente at, suscipit laboriosam maiores ad aliquam temporibus
+            perferendis!
           </p>
           <DonationForm handleDonationSuccess={handleDonationSuccess} />
         </main>
       );
     case "invalid organisation":
       return (
-        <main className='mt-10'>
+        <main className='pt-10'>
           <p className='text-center text-2xl font-medium'>
-            Organisation nicht gefunden
+            Organisation nicht gefunden.
           </p>
+          <Button className='mx-auto flex' variant={"link"}>
+            <Link href='/'>Zurück zur Startseite</Link>
+          </Button>
         </main>
       );
     case "success":
       return (
-        <main className='mt-10'>
-          <p className='text-center text-2xl font-medium'>
-            Vielen Dank, {fullName}, für deine Spende!
+        <main className='mx-auto mt-10 w-1/3 text-center'>
+          <p className='text-2xl font-bold'>{organisationName}</p>
+          <p className='py-2 text-4xl'>{finishedDonation?.amount} €</p>
+          <p className='py-2 text-center text-slate-800'>
+            Vielen Dank,{" "}
+            <span className='font-bold'>
+              {finishedDonation?.firstName + " " + finishedDonation?.lastName}
+            </span>{" "}
+            für deine Spende!
           </p>
+          <div className='space-y-2'>
+            <Button className='w-2/3' disabled>
+              Spendenbeleg herunterladen
+            </Button>
+            <br />
+            <Button
+              size={"sm"}
+              onClick={() => {
+                setDonationStep("donate");
+                setFinishedDonation(null);
+              }}
+              variant={"secondary"}
+              className='w-2/3'
+            >
+              Neue Spende
+            </Button>
+          </div>
         </main>
       );
   }

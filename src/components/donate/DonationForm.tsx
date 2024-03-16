@@ -1,12 +1,13 @@
 "use client";
 
-import { donationFormSchema } from "@/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { usePathname } from "next/navigation";
 import { formatDonationUrl } from "@/lib/utils";
+import { donationFormSchema } from "@/schemas";
+import { useOrganisationStore } from "@/store/organisation-store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Donation } from "@prisma/client";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,49 +19,42 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { checkOrganisationExists, createDonationAction, } from "@/actions/donate.action";
+
+import { Textarea } from "../ui/textarea";
 
 interface DonationFormProps {
-  handleDonationSuccess: (fullName: string) => void;
+  handleDonationSuccess: (donation: Donation) => void;
 }
 
 export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
   const form = useForm<z.infer<typeof donationFormSchema>>({
     resolver: zodResolver(donationFormSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      donationAmount: 0,
-      reason: "",
-      id: "",
-    },
   });
 
   const pathname = usePathname();
   const organisationName = formatDonationUrl(pathname);
 
+  const createDonation = useOrganisationStore((state) => state.createDonation);
+
   const onSubmit = async (data: z.infer<typeof donationFormSchema>) => {
-    const id = await checkOrganisationExists(organisationName);
-    if (!id) throw new Error("Organisation not found");
-    const createdDonation = await createDonationAction(
+    const createdDonation = await createDonation(
       data.firstName,
       data.lastName,
       data.email,
-      data.donationAmount,
+      data.donationAmount ?? 0,
       data.reason || "",
-      id,
+      organisationName,
     );
-    const fullName = createdDonation.firstName + " " + createdDonation.lastName;
-    handleDonationSuccess(fullName);
+    handleDonationSuccess(createdDonation);
   };
 
   return (
     <div className='pt-4'>
+      <p className='pb-2 text-center text-xl font-medium'>Spendenformular</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='mx-auto w-full space-y-6 md:w-1/2 lg:w-1/3'
+          className='mx-auto w-full space-y-6'
         >
           <div className='flex w-full space-x-2'>
             <FormField
@@ -145,7 +139,7 @@ export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
                   <FormMessage />
                 </div>
                 <FormControl>
-                  <Input placeholder='Spendengrund' {...field} />
+                  <Textarea rows={5} placeholder='Spendengrund' {...field} />
                 </FormControl>
               </FormItem>
             )}
