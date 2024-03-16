@@ -131,6 +131,7 @@ export const useOrganisationStore = create<OrganisationProps>()(
           resOrganisationId,
         );
         return newDonation;
+      },
       updateOrganisationLogo: async (
         organisationId: string,
         newLogoUrl: string,
