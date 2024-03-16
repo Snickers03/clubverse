@@ -9,7 +9,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import clsx from "clsx";
 import { Toaster } from "sonner";
 
-import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -36,7 +35,7 @@ export default function RootLayout({
             <Navigation />
             {children}
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </body>
       </html>
     </ClerkProvider>

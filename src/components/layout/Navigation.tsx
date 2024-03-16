@@ -12,7 +12,9 @@ const Navigation = async () => {
     <div className='sticky top-0 z-50 flex items-center justify-between rounded-b-lg bg-[#a5ddf6] bg-opacity-90 px-6 py-4'>
       <Header />
       <div className='hidden space-x-12 md:block'>
-        <Link href={"/"}>Lösungen</Link>
+        <Link href={"/"} className='text-slate-400 hover:cursor-default'>
+          Lösungen
+        </Link>
         <Link href={"/team"}>Team</Link>
         <Link href={"/faq"}>FAQ</Link>
       </div>
@@ -27,7 +29,9 @@ const Navigation = async () => {
         </div>
       ) : (
         <div className='flex items-center space-x-2'>
-          <Button size={"sm"}>Demo testen</Button>
+          <Button size={"sm"} disabled>
+            Demo testen
+          </Button>
           <Button size={"sm"} variant={"link"} className=''>
             <Link className='flex items-center space-x-2' href={"/sign-in"}>
               <LogIn size={22} />

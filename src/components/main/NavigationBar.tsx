@@ -24,22 +24,24 @@ export function NavigationBar() {
     <div className='py-2'>
       <div className='w-[400px]'>
         <div className='grid w-full grid-cols-3'>
-          {navigationLinks.map((link, index) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={clsx(
-                "bg-white py-1 text-center ",
-                index === 0 && "rounded-bl-md rounded-tl-md",
-                index === 2 && "rounded-br-md rounded-tr-md",
-                activePath === link.href &&
-                  "font-bold text-blue-400 hover:cursor-default",
-                activePath !== link.href && "hover:bg-gray-200",
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navigationLinks.map((link, index) => {
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={clsx(
+                  "bg-white py-1 text-center ",
+                  index === 0 && "rounded-bl-md rounded-tl-md",
+                  index === 2 && "rounded-br-md rounded-tr-md",
+                  activePath === link.href &&
+                    "font-bold text-blue-400 hover:cursor-default",
+                  activePath !== link.href && "hover:bg-gray-200",
+                )}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
