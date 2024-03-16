@@ -16,7 +16,7 @@ export default authMiddleware({
     "/api/organisation/invite",
     "/api/donation/find",
     "/api/donation/create",
-    "/donate/[organisationName]", //TODO: route fixen
+    "/donate/:organisationName",
   ],
 });
 export const config = {
