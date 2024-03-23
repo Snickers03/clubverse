@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { ReactNode } from "react";
 import { deDE } from "@clerk/localizations";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import clsx from "clsx";
 import { Toaster } from "sonner";
 
@@ -19,11 +19,13 @@ export const metadata: Metadata = {
   description: "ClubVerse - Dein Verein im Überblick",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const user = await currentUser();
+  // TODO: navigation doesnt show on / when user is logged in
   return (
     <ClerkProvider localization={deDE}>
       <html lang='de'>
@@ -33,7 +35,7 @@ export default function RootLayout({
         >
           {/* ! NOTE: Dont apply main classnames to the body tag -> shadcn dialog bug */}
           <main className='mx-4 flex-grow md:container md:mx-auto'>
-            <Navigation />
+            {!user && <Navigation />}
             {children}
           </main>
           <Footer />

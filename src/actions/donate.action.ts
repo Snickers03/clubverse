@@ -1,8 +1,14 @@
 import { Donation, Organisation } from "@prisma/client";
 
+type OrganisationExists = {
+  id: string;
+  name: string;
+  logoUrl: string;
+};
+
 export const checkOrganisationExistsAction = async (
   organisationName: string,
-): Promise<string | null> => {
+): Promise<OrganisationExists | null> => {
   try {
     const res = await fetch("/api/donation/find", {
       method: "POST",
@@ -20,7 +26,11 @@ export const checkOrganisationExistsAction = async (
       }
     }
     const dataOrganisation: Organisation = await res.json();
-    return dataOrganisation.id;
+    return {
+      id: dataOrganisation.id,
+      name: dataOrganisation.name,
+      logoUrl: dataOrganisation.logoUrl || "",
+    };
   } catch (error) {
     throw new Error("Error checking organisation");
   }

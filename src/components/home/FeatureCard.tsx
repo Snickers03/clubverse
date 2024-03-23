@@ -7,7 +7,7 @@ const FeatureCard = () => {
       <p className='title mb-12 mt-16 text-center'>
         Wie funktioniert ClubVerse?
       </p>
-      <div className='mx-auto w-full border-2 md:w-[92%]'>
+      <div className='mx-auto w-full md:w-[92%]'>
         {landingFeatures.map((feature) => (
           <div
             key={feature.id}

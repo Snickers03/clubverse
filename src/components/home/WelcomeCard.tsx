@@ -24,7 +24,7 @@ const WelcomeCard = async () => {
           </Link>
         ) : (
           <div>
-            <Button className=' bg-blue-300 px-8 py-6 text-2xl font-normal text-black hover:bg-blue-300'>
+            <Button className=' bg-blue-300 px-8 py-6 text-lg font-normal text-black hover:bg-blue-300 md:text-2xl'>
               <Link href='/sign-up'>Jetzt Verein verwalten!</Link>
             </Button>
             <p className='py-2 text-center text-gray-500'>

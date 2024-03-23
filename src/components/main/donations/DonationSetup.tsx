@@ -2,7 +2,7 @@
 
 import { useOrganisationStore } from "@/store/organisation-store";
 
-const DonationConfigurator = () => {
+const DonationSetup = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
   return (
     <div>
@@ -18,4 +18,4 @@ const DonationConfigurator = () => {
   );
 };
 
-export default DonationConfigurator;
+export default DonationSetup;

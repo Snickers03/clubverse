@@ -1,10 +1,12 @@
-import DonationConfigurator from "@/components/main/DonationConfigurator";
+import DonationsTable from "@/components/main/donations/DonationsTable";
+import YourDonationPage from "@/components/main/donations/YourDonationPage";
 
 export default function Page() {
   return (
     <div>
-      <p className='mb-4 text-xl font-medium'>Spenden</p>
-      <DonationConfigurator />
+      <YourDonationPage />
+      {/* <DonationSetup /> */}
+      <DonationsTable />
     </div>
   );
 }

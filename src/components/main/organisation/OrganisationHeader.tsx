@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { UserButton } from "@clerk/nextjs";
 
-import SettingsDropdown from "../settings/SettingsDropdown";
-
 const OrganisationHeader = () => {
   const organisation = useOrganisationStore((state) => state.organisation);
+
+  // TODO: Way better loading state -> skeleton loader
 
   return (
     <div className='flex justify-between'>
@@ -22,7 +22,7 @@ const OrganisationHeader = () => {
       </div>
       <div className='flex items-center space-x-2'>
         <UserButton afterSignOutUrl='/' />
-        <SettingsDropdown />
+        {/* <SettingsDropdown /> */}
       </div>
     </div>
   );

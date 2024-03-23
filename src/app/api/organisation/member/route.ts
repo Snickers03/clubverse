@@ -29,6 +29,8 @@ export async function POST(req: Request) {
         email: body.email,
         role: body.role as Role,
         organisationId: body.organisationId,
+        // TODO
+        mnr: 1,
       },
     });
 

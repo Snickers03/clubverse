@@ -24,9 +24,11 @@ const OrganisationMember = () => {
   const members = organisation?.users || [];
   const router = useRouter();
 
+  // TODO: Data Table with search, filter, sorting, actions
+
   return (
-    <div>
-      <div className='mb-4 flex items-center justify-between'>
+    <div className='mt-4'>
+      <div className='mb-2 flex items-center justify-between'>
         <p className='text-xl font-medium'>Mitglieder</p>
         <AddMemberDialog />
       </div>
@@ -35,7 +37,7 @@ const OrganisationMember = () => {
         <TableCaption>Eine Liste aller Organisationsmitglieder.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[100px]'>Mitgliedsnummer</TableHead>
+            <TableHead className='w-[100px]'>MNR</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Mitglied seit</TableHead>

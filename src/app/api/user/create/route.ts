@@ -36,6 +36,8 @@ export async function POST(req: Request) {
         firstName: body.firstName,
         lastName: body.lastName,
         email: body.email,
+        // TODO
+        mnr: 1,
       },
     });
     return createApiResponse(newUser);

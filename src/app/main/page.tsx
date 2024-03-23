@@ -66,10 +66,5 @@ export default function Page() {
     }
   }, [clerkUser, createOrganisation, getOrganisation, joinOrganisation]);
 
-  return (
-    <div>
-      <p className='mb-4 text-xl font-medium'>Übersicht</p>
-      <Overview />
-    </div>
-  );
+  return <Overview />;
 }

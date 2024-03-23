@@ -50,7 +50,6 @@ export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
 
   return (
     <div className='pt-4'>
-      <p className='pb-2 text-center text-xl font-medium'>Spendenformular</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -144,7 +143,9 @@ export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
               </FormItem>
             )}
           />
-          <Button type='submit'>Spenden</Button>
+          <Button className='w-full' type='submit'>
+            Spenden
+          </Button>
         </form>
       </Form>
     </div>

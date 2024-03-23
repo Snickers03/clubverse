@@ -9,6 +9,7 @@ datasource db {
 
 model User {
   id             String        @id @default(uuid())
+  mnr            Int
   firstName      String
   lastName       String
   email          String        @unique
@@ -34,6 +35,7 @@ model Organisation {
   inviteLink       String?    @unique
   type             String
   donationsEnabled Boolean    @default(false)
+  donationSlug     String?
   donations        Donation[]
   users            User[]
 }

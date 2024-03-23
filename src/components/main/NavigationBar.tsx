@@ -4,13 +4,24 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { Building, HandCoinsIcon, Settings, Users } from "lucide-react";
 
 export function NavigationBar() {
   const navigationLinks = [
-    { name: "Übersicht", href: "/main" },
-    { name: "Mitglieder", href: "/main/members" },
-    { name: "Spenden", href: "/main/donations" },
+    { name: "Übersicht", href: "/main", icon: <Building size={24} /> },
+    { name: "Mitglieder", href: "/main/members", icon: <Users size={24} /> },
+    {
+      name: "Spenden",
+      href: "/main/donations",
+      icon: <HandCoinsIcon size={24} />,
+    },
   ];
+
+  const navigationSettings = {
+    name: "Einstellungen",
+    href: "/main/settings",
+    icon: <Settings size={24} />,
+  };
 
   const pathname = usePathname();
 
@@ -21,28 +32,38 @@ export function NavigationBar() {
   }, [pathname]);
 
   return (
-    <div className='py-2'>
-      <div className='w-[400px]'>
-        <div className='grid w-full grid-cols-3'>
+    <div className='mt-4'>
+      <div className='flex w-full justify-between rounded-md bg-white px-4 py-2'>
+        <div className='flex space-x-12'>
           {navigationLinks.map((link, index) => {
             return (
               <Link
                 key={link.name}
                 href={link.href}
                 className={clsx(
-                  "bg-white py-1 text-center ",
-                  index === 0 && "rounded-bl-md rounded-tl-md",
-                  index === 2 && "rounded-br-md rounded-tr-md",
-                  activePath === link.href &&
-                    "font-bold text-blue-400 hover:cursor-default",
-                  activePath !== link.href && "hover:bg-gray-200",
+                  "flex items-center space-x-2",
+                  activePath === link.href && "text-black hover:cursor-default",
+                  activePath !== link.href && "text-slate-400",
                 )}
               >
-                {link.name}
+                {link.icon}
+                <span className='hidden md:block'>{link.name}</span>
               </Link>
             );
           })}
         </div>
+        <Link
+          href={navigationSettings.href}
+          className={clsx(
+            "flex items-center space-x-2",
+            activePath === navigationSettings.href &&
+              "text-black hover:cursor-default",
+            activePath !== navigationSettings.href && "text-slate-400",
+          )}
+        >
+          {navigationSettings.icon}
+          <span>{navigationSettings.name}</span>
+        </Link>
       </div>
     </div>
   );

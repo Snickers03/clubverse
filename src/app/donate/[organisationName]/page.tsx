@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDonationUrl } from "@/lib/utils";
@@ -19,7 +20,10 @@ type DonationStepType =
 
 export default function Page() {
   const pathname = usePathname();
-  const organisationName = formatDonationUrl(pathname);
+  const organisationSlug = formatDonationUrl(pathname);
+
+  const [organisationName, setOrganisationName] = useState<string>("");
+  const [organisationLogoUrl, setOrganisationLogoUrl] = useState<string>("");
 
   const [donationStep, setDonationStep] =
     useState<DonationStepType>("validate");
@@ -29,16 +33,18 @@ export default function Page() {
 
   useEffect(() => {
     const checkOrganisationExistsFunc = async () => {
-      const organisationId =
-        await checkOrganisationExistsAction(organisationName);
-      if (!organisationId) {
+      const organisation =
+        await checkOrganisationExistsAction(organisationSlug);
+      setOrganisationName(organisation?.name || "");
+      setOrganisationLogoUrl(organisation?.logoUrl || "");
+      if (!organisation?.id) {
         setDonationStep("invalid organisation");
         return;
       }
       setDonationStep("donate");
     };
     checkOrganisationExistsFunc();
-  }, [organisationName]);
+  }, [organisationSlug]);
 
   const handleDonationSuccess = (finishedDonation: Donation) => {
     setDonationStep("success");
@@ -50,13 +56,25 @@ export default function Page() {
       return <LoadingAnimation />;
     case "donate":
       return (
-        <main className='mx-auto w-1/3 pt-4'>
-          <p className='text-center text-2xl font-bold'>{organisationName}</p>
-          <p className='py-2 text-sm text-slate-800'>
-            Dies ist die Spenderseite der {organisationName}. Lorem ipsum dolor,
-            sit amet consectetur adipisicing elit. Commodi quis excepturi rem
-            sapiente at, suscipit laboriosam maiores ad aliquam temporibus
-            perferendis!
+        <main className='mx-auto w-full pt-4 md:w-1/2 lg:w-[44%]'>
+          <div className='flex items-end justify-center space-x-2'>
+            <Image
+              src={organisationLogoUrl}
+              width={40}
+              height={40}
+              alt='organisation-logo'
+            />
+            <p className='text-center text-2xl font-bold'>{organisationName}</p>
+          </div>
+          <p className='pt-4 text-justify text-base text-slate-700'>
+            Der TC Messkirch setzt sich leidenschaftlich für die Förderung des
+            Tennissports in unserer Gemeinde ein. Mit Ihrer Spende unterstützen
+            Sie nicht nur die Instandhaltung unserer Anlagen und die Anschaffung
+            neuer Ausrüstung, sondern ermöglichen auch Kindern und Jugendlichen
+            aus finanziell benachteiligten Familien, am Training teilzunehmen
+            und ihre Leidenschaft für Tennis zu entdecken. Helfen Sie uns, die
+            Liebe zum Sport weiterzugeben und eine Gemeinschaft zu stärken, in
+            der jeder die Chance hat, sein volles Potenzial zu entfalten.
           </p>
           <DonationForm handleDonationSuccess={handleDonationSuccess} />
         </main>
@@ -75,7 +93,7 @@ export default function Page() {
     case "success":
       return (
         <main className='mx-auto mt-10 w-1/3 text-center'>
-          <p className='text-2xl font-bold'>{organisationName}</p>
+          <p className='text-2xl font-bold'>{organisationSlug}</p>
           <p className='py-2 text-4xl'>{finishedDonation?.amount} €</p>
           <p className='py-2 text-center text-slate-800'>
             Vielen Dank,{" "}

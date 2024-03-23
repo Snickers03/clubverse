@@ -1,13 +1,22 @@
 import { clsx, type ClassValue } from "clsx";
 import moment from "moment";
+
+import "moment/locale/de";
+
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+moment.locale("de");
+
 export const formatDate = (date: Date): string => {
   return moment(date).format("DD.MM.YYYY");
+};
+
+export const timeFromNow = (date: Date): string => {
+  return moment(date).fromNow();
 };
 
 export const createOrganisationInviteCode = () => {
@@ -15,12 +24,7 @@ export const createOrganisationInviteCode = () => {
 };
 
 export const formatDonationUrl = (donationPathName: string) => {
-  const organisationPath =
-    donationPathName.split("/").pop()?.replaceAll("-", " ") ?? "";
+  const organisationPath = donationPathName.split("/").pop() ?? "";
 
-  const formattedOrganisationName = organisationPath
-    .split(" ")
-    .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
-    .join(" ");
-  return formattedOrganisationName;
+  return organisationPath;
 };
