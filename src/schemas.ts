@@ -15,6 +15,7 @@ export const AddMemberFormSchema = z.object({
       message: "* Ungültige Email-Adresse",
     }),
   role: z.string(),
+  memberSince: z.date().optional(),
 });
 
 export const createOrganisationFormSchema = z.object({

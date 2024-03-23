@@ -35,11 +35,11 @@ const OrganisationMember = () => {
         <TableCaption>Eine Liste aller Organisationsmitglieder.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[100px]'>Id</TableHead>
+            <TableHead className='w-[100px]'>Mitgliedsnummer</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Mitglied seit</TableHead>
-            <TableHead>Role</TableHead>
+            <TableHead>Rolle</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

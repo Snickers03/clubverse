@@ -82,3 +82,13 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.title {
+  @apply text-center text-2xl font-bold md:text-3xl lg:text-4xl;
+  @apply text-black;
+}
+
+.content {
+  @apply text-justify text-gray-600;
+  font-size: medium;
+}

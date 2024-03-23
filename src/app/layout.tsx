@@ -32,7 +32,7 @@ export default function RootLayout({
           className={clsx("flex min-h-screen flex-col", montserrat.className)}
         >
           {/* ! NOTE: Dont apply main classnames to the body tag -> shadcn dialog bug */}
-          <main className='container mx-auto flex-grow px-3 md:px-0'>
+          <main className='mx-4 flex-grow md:container md:mx-auto'>
             <Navigation />
             {children}
           </main>

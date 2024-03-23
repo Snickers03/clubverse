@@ -14,15 +14,20 @@ export function AddMemberDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size={"sm"}>Neues Mitglied</Button>
+        <Button size={"sm"}>Mitglieder hinzufügen</Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='w-2/3'>
         <DialogHeader>
-          <DialogTitle>Mitglied hinzufügen</DialogTitle>
+          <DialogTitle>Mitglieder hinzufügen</DialogTitle>
           <DialogDescription>
-            Füge ein neues Mitglied zu deiner Organisation hinzu.
+            Importiere Mitglieder in deinen Verein oder füge sie manuell hinzu.
           </DialogDescription>
         </DialogHeader>
+        <div className='flex justify-center space-x-4 py-5'>
+          <Button>csv Datei importieren</Button>
+          <Button>exl Datei importieren</Button>
+        </div>
+        <p className='py-3 text-center font-bold'>oder</p>
         <AddMemberForm />
       </DialogContent>
     </Dialog>

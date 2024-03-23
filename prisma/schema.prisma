@@ -24,17 +24,18 @@ model User {
 }
 
 model Organisation {
-  id         String     @id @default(uuid())
-  logoUrl    String?
-  adminId    String?
-  name       String
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  deleted    Boolean    @default(false)
-  inviteLink String?    @unique
-  type       String
-  donations  Donation[]
-  users      User[]
+  id               String     @id @default(uuid())
+  logoUrl          String?
+  adminId          String?
+  name             String
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  deleted          Boolean    @default(false)
+  inviteLink       String?    @unique
+  type             String
+  donationsEnabled Boolean    @default(false)
+  donations        Donation[]
+  users            User[]
 }
 
 model Donation {
@@ -52,6 +53,8 @@ model Donation {
 }
 
 enum Role {
-  ADMIN
   USER
+  ADMIN
+  TREASURER
+  BOARD_MEMBER
 }

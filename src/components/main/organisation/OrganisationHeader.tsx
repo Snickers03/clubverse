@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useOrganisationStore } from "@/store/organisation-store";
+import { UserButton } from "@clerk/nextjs";
 
 import SettingsDropdown from "../settings/SettingsDropdown";
 
@@ -19,7 +20,10 @@ const OrganisationHeader = () => {
         />
         <h1 className='text-left text-3xl font-bold'>{organisation?.name}</h1>
       </div>
-      <SettingsDropdown />
+      <div className='flex items-center space-x-2'>
+        <UserButton afterSignOutUrl='/' />
+        <SettingsDropdown />
+      </div>
     </div>
   );
 };

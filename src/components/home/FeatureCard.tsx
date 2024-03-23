@@ -4,21 +4,23 @@ import { landingFeatures } from "@/mocks/contentData";
 const FeatureCard = () => {
   return (
     <div>
-      <p className='mb-12 mt-16 text-center text-4xl font-bold'>
+      <p className='title mb-12 mt-16 text-center'>
         Wie funktioniert ClubVerse?
       </p>
-      <div className='mx-auto w-[92%]'>
+      <div className='mx-auto w-full border-2 md:w-[92%]'>
         {landingFeatures.map((feature) => (
           <div
             key={feature.id}
-            className={`flex w-full items-center space-x-8  px-16 ${feature.reverse ? "flex-row-reverse px-8" : ""}`}
+            className={`flex w-full items-center space-x-8  md:px-8 lg:px-16 ${feature.reverse ? "flex-row-reverse md:px-8" : ""}`}
           >
             <div className='w-[60%]'>
-              <p className='text-medium uppercase text-gray-500'>
+              <p className='md:text-medium text-sm uppercase text-gray-500'>
                 {feature.category}
               </p>
-              <p className='pb-3 pt-1 text-3xl font-medium'>{feature.title}</p>
-              <p className='text-gray-700'>{feature.description}</p>
+              <p className='pb-3 pt-1 text-xl font-medium md:text-3xl'>
+                {feature.title}
+              </p>
+              <p className='content'>{feature.description}</p>
             </div>
             <div className={`w-[40%] ${feature.reverse && "pr-8"}`}>
               <Image

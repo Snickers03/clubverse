@@ -12,9 +12,6 @@ const Navigation = async () => {
     <div className='sticky top-0 z-50 flex items-center justify-between rounded-b-lg bg-[#a5ddf6] bg-opacity-90 px-6 py-4'>
       <Header />
       <div className='hidden space-x-12 md:block'>
-        <Link href={"/"} className='text-slate-400 hover:cursor-default'>
-          Lösungen
-        </Link>
         <Link href={"/team"}>Team</Link>
         <Link href={"/faq"}>FAQ</Link>
       </div>
