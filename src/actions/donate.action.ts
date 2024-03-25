@@ -44,26 +44,31 @@ export const createDonationAction = async (
   reason: string,
   organisationId: string,
 ): Promise<Donation> => {
-  const res = await fetch("/api/donation/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      amount,
-      reason,
-      organisationId,
-    }),
-  });
+  try {
+    const res = await fetch("/api/donation/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        amount,
+        reason,
+        organisationId,
+      }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (res.status !== 200) {
-    throw new Error(data.message);
+    if (res.status !== 200) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error creating donation");
   }
-
-  return data;
 };

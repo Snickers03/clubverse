@@ -116,9 +116,9 @@ export const useOrganisationStore = create<OrganisationProps>()(
         reason: string,
         organisationName: string,
       ) => {
-        const resOrganisationId =
+        const organisation =
           await checkOrganisationExistsAction(organisationName);
-        if (!resOrganisationId) {
+        if (!organisation) {
           throw new Error("Organisation not found");
         }
         const newDonation = await createDonationAction(
@@ -127,7 +127,7 @@ export const useOrganisationStore = create<OrganisationProps>()(
           email,
           donationAmount,
           reason,
-          resOrganisationId,
+          organisation.id,
         );
         return newDonation;
       },

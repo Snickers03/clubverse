@@ -35,6 +35,7 @@ export async function POST(req: Request) {
 
     return createApiResponse(newDonation);
   } catch (error) {
+    console.error(error);
     return handleApiError(error, "ERROR: POST /api/donation/create");
   }
 }

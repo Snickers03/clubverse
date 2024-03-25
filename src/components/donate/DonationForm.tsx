@@ -1,11 +1,11 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { stripe } from "@/lib/stripe";
 import { formatDonationUrl } from "@/lib/utils";
 import { donationFormSchema } from "@/schemas";
 import { useOrganisationStore } from "@/store/organisation-store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Donation } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,11 +22,7 @@ import { Input } from "@/components/ui/input";
 
 import { Textarea } from "../ui/textarea";
 
-interface DonationFormProps {
-  handleDonationSuccess: (donation: Donation) => void;
-}
-
-export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
+export function DonationForm() {
   const form = useForm<z.infer<typeof donationFormSchema>>({
     resolver: zodResolver(donationFormSchema),
   });
@@ -36,16 +32,42 @@ export function DonationForm({ handleDonationSuccess }: DonationFormProps) {
 
   const createDonation = useOrganisationStore((state) => state.createDonation);
 
+  const router = useRouter();
+
   const onSubmit = async (data: z.infer<typeof donationFormSchema>) => {
-    const createdDonation = await createDonation(
-      data.firstName,
-      data.lastName,
-      data.email,
-      data.donationAmount ?? 0,
-      data.reason || "",
-      organisationName,
-    );
-    handleDonationSuccess(createdDonation);
+    try {
+      const createdDonation = await createDonation(
+        data.firstName,
+        data.lastName,
+        data.email,
+        data.donationAmount ?? 0,
+        data.reason || "",
+        organisationName,
+      );
+
+      const res = await stripe.checkout.sessions.create({
+        payment_method_types: ["card", "paypal"],
+        line_items: [
+          {
+            price_data: {
+              currency: "eur",
+              product_data: {
+                name: "Spende",
+              },
+              unit_amount: createdDonation.amount * 100,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${window.location.origin}/donate/thank-you?oid=${createdDonation.id}`,
+        cancel_url: `${window.location.origin}/donate/cancel`,
+      });
+      const stripeSessionUrl = res.url ?? "#";
+      router.push(stripeSessionUrl);
+    } catch (e) {
+      console.log("error:", e);
+    }
   };
 
   return (

@@ -46,11 +46,6 @@ export default function Page() {
     checkOrganisationExistsFunc();
   }, [organisationSlug]);
 
-  const handleDonationSuccess = (finishedDonation: Donation) => {
-    setDonationStep("success");
-    setFinishedDonation(finishedDonation);
-  };
-
   switch (donationStep) {
     case "validate":
       return <LoadingAnimation />;
@@ -76,7 +71,7 @@ export default function Page() {
             Liebe zum Sport weiterzugeben und eine Gemeinschaft zu stärken, in
             der jeder die Chance hat, sein volles Potenzial zu entfalten.
           </p>
-          <DonationForm handleDonationSuccess={handleDonationSuccess} />
+          <DonationForm />
         </main>
       );
     case "invalid organisation":
